@@ -1,0 +1,595 @@
+/* ==========================================================================
+   ROCSATO CONSERVATORY OF MUSIC
+   Brand Typography, Atmospheric Foundations & Spatial Choreography
+   ========================================================================== */
+
+:root {
+  /* Brand Palette */
+  --color-black: #080708;
+  --color-noir-deep: #0e0b0d;
+  --color-ivory: #fdfbf7;
+  --color-ivory-muted: rgba(253, 251, 247, 0.68);
+  --color-ivory-dim: rgba(253, 251, 247, 0.38);
+  --color-gold: #d4af37;
+  --color-gold-muted: rgba(212, 175, 55, 0.45);
+  --color-gold-soft: rgba(212, 175, 55, 0.15);
+  --color-parlor-rose: #2e1a1c;
+  --color-velvet-mauve: #7a5c61;
+  --color-border-subtle: rgba(212, 175, 55, 0.2);
+
+  /* Typography */
+  --font-display: 'Prata', 'Playfair Display', Georgia, serif;
+  --font-body: 'Albert Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Spatial Transitions */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--color-black);
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  background-attachment: fixed;
+}
+
+/* Subtle Film Grain Texture Overlay */
+.cinema-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: radial-gradient(#fff 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Vignette mask over entire experience */
+.cinema-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 998;
+  box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.95), inset 0 0 60px rgba(8, 7, 8, 0.9);
+}
+
+/* Ambient Top Masthead */
+.studio-masthead {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.2rem 3.5rem;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.masthead-wordmark {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-ivory-muted);
+}
+
+.masthead-location {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* ==========================================================================
+   STAGE 1: SCROLL-DRIVEN PINNED APERTURE & PORTAL
+   ========================================================================== */
+
+.portal-stage {
+  position: relative;
+  width: 100%;
+  height: 480vh; /* Controlled scroll distance for cinematic pacing */
+  background: var(--color-black);
+}
+
+.portal-sticky-frame {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+/* Opening Chamber Content */
+.opening-chamber {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.chamber-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 2.4rem;
+  opacity: 0.9;
+  text-align: center;
+}
+
+/* Emblem & Portal Rig */
+.aperture-rig {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.rcm-monogram-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.8));
+}
+
+.chamber-subheading {
+  margin-top: 2.4rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-ivory-muted);
+  text-align: center;
+}
+
+.scroll-invitation {
+  position: absolute;
+  bottom: 2.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0.65;
+  transition: opacity 0.6s ease;
+}
+
+.scroll-invitation-text {
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-ivory-dim);
+}
+
+.scroll-invitation-line {
+  width: 1px;
+  height: 38px;
+  background: linear-gradient(to bottom, var(--color-gold), transparent);
+}
+
+/* The Dark Void - Transit through the C */
+.transit-darkness {
+  position: absolute;
+  inset: 0;
+  background: var(--color-black);
+  opacity: 0;
+  z-index: 20;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* "FIND YOUR INSTRUMENT" Discovery Chamber */
+.discovery-chamber {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  z-index: 30;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+}
+
+.discovery-kicker {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1.5rem;
+}
+
+.discovery-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+  color: var(--color-ivory);
+  max-width: 900px;
+}
+
+.discovery-rule {
+  width: 50px;
+  height: 1px;
+  background: var(--color-gold-muted);
+  margin: 2rem auto;
+}
+
+.discovery-caption {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--color-ivory-muted);
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   STAGE 2: DISCIPLINES SCROLL STORYTELLING
+   ========================================================================== */
+
+.disciplines-narrative {
+  position: relative;
+  background: var(--color-black);
+  z-index: 50;
+}
+
+.discipline-chapter {
+  position: relative;
+  min-height: 130vh;
+  padding: 10vh 6vw 14vh 6vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+}
+
+.discipline-inner {
+  max-width: 1240px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 5vw;
+  align-items: center;
+}
+
+/* Left / Visual Plate: Emerging Image */
+.discipline-visual-stage {
+  position: relative;
+}
+
+.discipline-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #110d10;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(212, 175, 55, 0.12);
+  transform: translateY(40px) scale(0.97);
+  opacity: 0;
+  filter: blur(14px) brightness(0.6);
+  transition: transform 1.2s var(--ease-cinematic), opacity 1.2s ease, filter 1.2s ease;
+  will-change: transform, opacity, filter;
+}
+
+.discipline-frame.is-revealed {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  filter: blur(0px) brightness(1);
+}
+
+.discipline-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3rem;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+.discipline-shadow-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 7, 8, 0.2) 0%,
+    rgba(8, 7, 8, 0.45) 45%,
+    rgba(8, 7, 8, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+.discipline-plate-badge {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.4rem;
+}
+
+.discipline-plate-echo {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-ivory);
+  font-style: italic;
+}
+
+/* Right: Editorial Typography & Instructor Position */
+.discipline-editorial {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s var(--ease-cinematic) 0.2s, transform 1s var(--ease-cinematic) 0.2s;
+}
+
+.discipline-editorial.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.discipline-index {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1.2rem;
+}
+
+.discipline-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.2vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  color: var(--color-ivory);
+  margin-bottom: 1.8rem;
+}
+
+.discipline-description {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--color-ivory-muted);
+  margin-bottom: 2.8rem;
+  max-width: 480px;
+}
+
+/* Dedicated Instructor Position */
+.instructor-dock {
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-top: 0.8rem;
+}
+
+.instructor-avatar-frame {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-parlor-rose);
+  border: 1px solid var(--color-gold);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.instructor-avatar-initials {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+}
+
+.instructor-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.instructor-role-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.instructor-name {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  color: var(--color-ivory);
+  letter-spacing: 0.02em;
+}
+
+.instructor-status {
+  font-size: 0.8rem;
+  color: var(--color-ivory-dim);
+  font-style: italic;
+}
+
+/* Scope Boundary Coda */
+.disciplines-coda {
+  min-height: 35vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom, var(--color-black), #050405);
+}
+
+.coda-mark {
+  width: 40px;
+  height: 1px;
+  background: var(--color-gold-muted);
+  margin-bottom: 2rem;
+}
+
+.coda-text {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: var(--color-ivory-muted);
+  max-width: 480px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (Mobile First & Tablet Precision)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .studio-masthead {
+    padding: 1.6rem 1.8rem;
+  }
+  
+  .portal-stage {
+    height: 380vh;
+  }
+
+  .aperture-rig {
+    width: 240px;
+    height: 240px;
+  }
+
+  .discipline-chapter {
+    min-height: auto;
+    padding: 10vh 6vw;
+  }
+
+  .discipline-inner {
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+  }
+
+  .discipline-frame {
+    aspect-ratio: 16 / 11;
+  }
+
+  .discipline-title {
+    font-size: 2.2rem;
+  }
+
+  .discipline-description {
+    font-size: 0.98rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .studio-masthead {
+    padding: 1.2rem 1.2rem;
+  }
+
+  .masthead-wordmark {
+    font-size: 0.8rem;
+  }
+
+  .masthead-location {
+    font-size: 0.65rem;
+  }
+
+  .portal-stage {
+    height: 340vh;
+  }
+
+  .aperture-rig {
+    width: 200px;
+    height: 200px;
+  }
+
+  .chamber-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+  }
+
+  .chamber-subheading {
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+  }
+
+  .discovery-title {
+    font-size: 2.1rem;
+  }
+
+  .discipline-frame {
+    aspect-ratio: 1 / 1;
+  }
+
+  .discipline-img-placeholder {
+    padding: 1.8rem;
+  }
+}
+
+/* Reduced Motion Safety Gate */
+@media (prefers-reduced-motion: reduce) {
+  .portal-stage {
+    height: auto;
+  }
+  .portal-sticky-frame {
+    position: relative;
+    height: auto;
+    padding: 6rem 2rem;
+  }
+  .opening-chamber,
+  .discovery-chamber,
+  .discipline-frame,
+  .discipline-editorial {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    position: relative !important;
+  }
+  .transit-darkness {
+    display: none !important;
+  }
+}

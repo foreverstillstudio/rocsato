@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <title>Rocsato Conservatory of Music — Find Your Instrument</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* --------------------------------------------------------------------------
+       UNPUBLISHED CONCEPT NOTICE
+       -------------------------------------------------------------------------- */
+    :root {
+      --concept-banner-height: 48px;
+    }
+
+    .concept-notice {
+      position: fixed !important;
+      inset: 0 0 auto 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.9rem !important;
+      min-height: var(--concept-banner-height) !important;
+      padding: 0.65rem 2.8rem !important;
+      box-sizing: border-box !important;
+      background: rgba(8, 7, 8, 0.9) !important;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.34) !important;
+      color: rgba(253, 251, 247, 0.66) !important;
+      font-family: 'Albert Sans', -apple-system, sans-serif !important;
+      z-index: 80 !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+    }
+
+    .concept-notice-mark {
+      flex: 0 0 auto !important;
+      color: #d4af37 !important;
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.61rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.2em !important;
+      line-height: 1 !important;
+      text-transform: uppercase !important;
+    }
+
+    .concept-notice-mark::after {
+      content: '' !important;
+      display: inline-block !important;
+      width: 20px !important;
+      height: 1px !important;
+      margin: 0 0 0.2rem 0.72rem !important;
+      background: rgba(212, 175, 55, 0.55) !important;
+      vertical-align: middle !important;
+    }
+
+    .concept-notice-copy {
+      margin: 0 !important;
+      font-size: 0.76rem !important;
+      font-weight: 300 !important;
+      line-height: 1.35 !important;
+    }
+
+    .concept-notice-copy strong {
+      color: rgba(253, 251, 247, 0.9) !important;
+      font-weight: 400 !important;
+    }
+
+    .concept-notice-status {
+      margin-left: auto !important;
+      color: rgba(212, 175, 55, 0.65) !important;
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.57rem !important;
+      letter-spacing: 0.16em !important;
+      line-height: 1.4 !important;
+      text-align: right !important;
+      text-transform: uppercase !important;
+      white-space: nowrap !important;
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --concept-banner-height: 66px;
+      }
+
+      .concept-notice {
+        align-items: flex-start !important;
+        gap: 0.6rem !important;
+        padding: 0.72rem 1.15rem !important;
+      }
+
+      .concept-notice-mark {
+        padding-top: 0.14rem !important;
+        font-size: 0.56rem !important;
+      }
+
+      .concept-notice-mark::after {
+        display: none !important;
+      }
+
+      .concept-notice-copy {
+        font-size: 0.7rem !important;
+        max-width: 31rem !important;
+      }
+
+      .concept-notice-status {
+        display: none !important;
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       EDITORIAL TOP-RIGHT MASTHEAD NAVIGATION
+       -------------------------------------------------------------------------- */
+    .rocsato-nav-header {
+      position: fixed !important;
+      top: var(--concept-banner-height) !important;
+      left: 0 !important;
+      right: 0 !important;
+      display: flex !important;
+      justify-content: flex-end !important;
+      align-items: center !important;
+      padding: 2.4rem 2.8rem !important; /* ~40-45px top & right */
+      z-index: 60 !important;
+      background: transparent !important;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease;
+      pointer-events: auto !important;
+    }
+
+    .rocsato-nav-header.is-scrolled {
+      background: rgba(8, 7, 8, 0.65) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      padding: 1.4rem 2.8rem !important;
+    }
+
+    .rocsato-nav-list {
+      display: flex !important;
+      align-items: center !important;
+      gap: 1.8rem !important;
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .rocsato-nav-link {
+      position: relative !important;
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.76rem !important; /* ~12.2px desktop */
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      color: rgba(253, 251, 247, 0.72) !important;
+      text-decoration: none !important;
+      font-weight: 500 !important;
+      padding-bottom: 4px !important;
+      transition: color 0.3s ease !important;
+    }
+
+    /* Option 1: Tiny gold underline grows in beneath the link */
+    .rocsato-nav-link::after {
+      content: '' !important;
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      width: 0% !important;
+      height: 1px !important;
+      background: #d4af37 !important;
+      transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    }
+
+    .rocsato-nav-link:hover {
+      color: #fdfbf7 !important;
+    }
+
+    .rocsato-nav-link:hover::after,
+    .rocsato-nav-link.is-active::after {
+      width: 100% !important;
+    }
+
+    .rocsato-nav-divider {
+      color: rgba(212, 175, 55, 0.35) !important;
+      font-size: 0.75rem !important;
+      line-height: 1 !important;
+      user-select: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .rocsato-nav-header {
+        padding: 1.2rem 1.4rem !important;
+        justify-content: center !important;
+      }
+      .rocsato-nav-header.is-scrolled {
+        padding: 1rem 1.4rem !important;
+      }
+      .rocsato-nav-list {
+        gap: 1.2rem !important;
+      }
+      .rocsato-nav-link {
+        font-size: 0.7rem !important;
+        letter-spacing: 0.12em !important;
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       ROCK-SOLID VIEWPORT LOCK
+       Uses position: fixed for the camera viewport so the logo CANNOT scroll away.
+       -------------------------------------------------------------------------- */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: #080708 !important;
+      overflow-x: hidden !important;
+    }
+
+    /* Extended scroll track for unhurried cinematic pacing across all 6 disciplines */
+    .portal-stage {
+      position: relative !important;
+      height: 2200vh !important;
+      width: 100% !important;
+      background: transparent !important;
+    }
+
+    /* Master viewport stage: permanently locked to the screen, zero movement */
+    .viewport-stage {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      overflow: hidden !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 20 !important;
+      pointer-events: none !important;
+    }
+
+    /* Opening chamber: vertically & horizontally centered flex stack */
+    .opening-chamber {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 6rem 1.5rem 2rem 1.5rem !important;
+      box-sizing: border-box !important;
+      z-index: 22 !important;
+    }
+
+    /* RCM Emblem Rig: dead-center anchor */
+    .aperture-rig {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 320px !important;
+      max-width: 80vw !important;
+      margin-top: 2rem !important;
+      transform-origin: 46% 34% !important; /* Red-dot focal point inside the C */
+      will-change: transform !important;
+    }
+
+    .rcm-logo-asset {
+      width: 100% !important;
+      height: auto !important;
+      display: block !important;
+    }
+
+    /* Metallic Specular Glint: sweeps across the emblem */
+    .rcm-glint-sheen {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      pointer-events: none !important;
+      overflow: hidden !important;
+      z-index: 10 !important;
+    }
+
+    .rcm-glint-bar {
+      position: absolute !important;
+      top: -50% !important;
+      left: -140% !important;
+      width: 50px !important;
+      height: 200% !important;
+      background: linear-gradient(
+        105deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 235, 175, 0.3) 25%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(255, 225, 140, 0.4) 75%,
+        rgba(255, 255, 255, 0) 100%
+      ) !important;
+      transform: rotate(25deg) !important;
+      box-shadow: 0 0 24px rgba(255, 220, 120, 0.85), 0 0 10px rgba(255, 255, 255, 0.9) !important;
+      opacity: 0;
+      animation: rcmGlintCycle 7s cubic-bezier(0.22, 1, 0.36, 1) 0.8s infinite !important;
+    }
+
+    /* Keyframed so it glints on load, flashes a second subtle pass, then cycles every 7s */
+    @keyframes rcmGlintCycle {
+      0% {
+        left: -140%;
+        opacity: 0;
+      }
+      3% {
+        opacity: 1;
+      }
+      16% {
+        left: 160%;
+        opacity: 0;
+      }
+      /* Echo sweep at ~2.4s mark */
+      22% {
+        left: -140%;
+        opacity: 0;
+      }
+      24% {
+        opacity: 0.8;
+      }
+      35% {
+        left: 160%;
+        opacity: 0;
+      }
+      /* Rests dark for the remainder of the 7s cycle */
+      100% {
+        left: 160%;
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rcm-glint-sheen {
+        display: none !important;
+      }
+    }
+
+    /* Tagline: spaced cleanly below the emblem */
+    .chamber-tagline {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.82rem !important;
+      letter-spacing: 0.22em !important;
+      text-transform: uppercase !important;
+      color: var(--color-ivory) !important;
+      margin: 1.8rem 0 0 0 !important;
+      text-align: center !important;
+      font-weight: 400 !important;
+      opacity: 0.88;
+      will-change: opacity !important;
+    }
+
+    /* Scroll prompt: positioned below the tagline with generous clearance (never overlapping) */
+    .scroll-invitation {
+      position: relative !important;
+      margin-top: 3.5rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 0.6rem !important;
+      z-index: 24 !important;
+      will-change: opacity !important;
+    }
+
+    .transit-darkness {
+      position: absolute !important;
+      inset: 0 !important;
+      background: #080708 !important;
+      z-index: 30 !important;
+      opacity: 0;
+      pointer-events: none !important;
+      will-change: opacity !important;
+    }
+
+    .discovery-chamber {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 2rem !important;
+      text-align: center !important;
+      box-sizing: border-box !important;
+      z-index: 35 !important;
+      opacity: 0;
+      pointer-events: none !important;
+      transform: none !important;
+      will-change: opacity !important;
+    }
+
+    /* ==========================================================================
+       LOCKED DISCIPLINES GALLERY
+       Each discipline is pinned dead-center in the viewport with step-by-step
+       staggered reveals: Picture -> Title -> Description -> Instructor -> Hold
+       ========================================================================== */
+    .disciplines-narrative {
+      position: relative !important;
+      z-index: 40 !important;
+      background: #080708 !important;
+    }
+
+    /* Piano card: locked dead-center in the viewport with two distinct columns */
+    .discipline-center-card {
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 90vw !important;
+      max-width: 1040px !important;
+      display: none;
+      grid-template-columns: minmax(280px, 400px) 1fr !important;
+      gap: clamp(2rem, 4vw, 4rem) !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+      padding: 1.5rem !important;
+      z-index: 40 !important;
+      opacity: 0;
+      pointer-events: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .discipline-center-card {
+        grid-template-columns: 1fr !important;
+        width: 94vw !important;
+        gap: 0.7rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 0.75rem !important;
+      }
+
+      .discipline-visual-box {
+        aspect-ratio: 16 / 7 !important;
+        max-height: 28dvh !important;
+      }
+
+      .discipline-editorial-col {
+        gap: 0.5rem !important;
+      }
+
+      .step-index {
+        font-size: 0.62rem !important;
+        letter-spacing: 0.22em !important;
+      }
+
+      .step-name {
+        font-size: clamp(1.6rem, 8vw, 2.15rem) !important;
+        line-height: 1.05 !important;
+      }
+
+      .step-lead {
+        font-size: 0.84rem !important;
+        line-height: 1.3 !important;
+      }
+
+      .step-info {
+        font-size: 0.78rem !important;
+        line-height: 1.42 !important;
+      }
+
+      .step-instructor {
+        margin-top: 0.25rem !important;
+        gap: 0.7rem !important;
+      }
+
+      .instructor-avatar-frame {
+        width: 34px !important;
+        height: 42px !important;
+      }
+
+      .instructor-eyebrow {
+        font-size: 0.58rem !important;
+      }
+
+      .instructor-name {
+        font-size: 0.82rem !important;
+      }
+
+      .instructor-discipline,
+      .instructor-link {
+        font-size: 0.66rem !important;
+      }
+    }
+
+    /* 1. Picture stage */
+    .discipline-visual-box {
+      position: relative !important;
+      width: 100% !important;
+      aspect-ratio: 4/5 !important;
+      max-height: 58vh !important;
+      border-radius: 4px !important;
+      overflow: hidden !important;
+      border: 1px solid rgba(212, 175, 55, 0.35) !important;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 40px rgba(0, 0, 0, 0.8) !important;
+      background: #150f11 !important;
+      opacity: 0;
+      will-change: opacity !important;
+    }
+
+    .discipline-visual-box img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+
+    /* Atmospheric Classical Art Plate (used for disciplines prior to custom photography upload) */
+    .discipline-art-plate {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-end !important;
+      padding: clamp(1.5rem, 3vw, 2.8rem) !important;
+      box-sizing: border-box !important;
+      position: relative !important;
+      background-size: cover !important;
+      background-position: center !important;
+    }
+
+    .plate-strings {
+      background: radial-gradient(circle at 60% 30%, rgba(68, 38, 30, 0.75), rgba(12, 9, 10, 0.98)),
+                  linear-gradient(135deg, #241412 0%, #0d0a0b 100%);
+    }
+
+    .plate-woodwinds {
+      background: radial-gradient(circle at 40% 40%, rgba(42, 54, 48, 0.65), rgba(10, 13, 11, 0.98)),
+                  linear-gradient(135deg, #141c17 0%, #080a08 100%);
+    }
+
+    .plate-brass {
+      background: radial-gradient(circle at 50% 25%, rgba(94, 72, 32, 0.7), rgba(14, 11, 8, 0.98)),
+                  linear-gradient(135deg, #2a1f10 0%, #0c0906 100%);
+    }
+
+    .plate-voice {
+      background: radial-gradient(circle at 50% 30%, rgba(78, 28, 36, 0.75), rgba(15, 8, 10, 0.98)),
+                  linear-gradient(135deg, #2b1016 0%, #0b0608 100%);
+    }
+
+    .plate-chamber {
+      background: radial-gradient(circle at 50% 45%, rgba(56, 44, 38, 0.7), rgba(13, 10, 9, 0.98)),
+                  linear-gradient(135deg, #1e1713 0%, #0a0807 100%);
+    }
+
+    .plate-watermark {
+      position: absolute !important;
+      top: 2rem !important;
+      right: 2rem !important;
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 3.5rem !important;
+      color: rgba(212, 175, 55, 0.12) !important;
+      line-height: 1 !important;
+      user-select: none !important;
+    }
+
+    .plate-badge {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.7rem !important;
+      letter-spacing: 0.28em !important;
+      text-transform: uppercase !important;
+      color: var(--color-gold) !important;
+      margin-bottom: 0.4rem !important;
+    }
+
+    .plate-latin {
+      font-family: 'Albert Sans', sans-serif !important;
+      font-style: italic !important;
+      font-size: 0.92rem !important;
+      color: rgba(253, 251, 247, 0.65) !important;
+      margin: 0 !important;
+    }
+
+    /* 2. Editorial column */
+    .discipline-editorial-col {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      gap: 1.2rem !important;
+      text-align: left !important;
+    }
+
+    .step-index {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.76rem !important;
+      letter-spacing: 0.28em !important;
+      text-transform: uppercase !important;
+      color: var(--color-gold) !important;
+      opacity: 0;
+      margin: 0 !important;
+      will-change: opacity !important;
+    }
+
+    .step-name {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: clamp(2.2rem, 3.8vw, 3.1rem) !important;
+      line-height: 1.1 !important;
+      font-weight: 600 !important;
+      color: var(--color-ivory) !important;
+      margin: 0 !important;
+      opacity: 0;
+      will-change: opacity !important;
+    }
+
+    .step-lead {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: clamp(0.95rem, 1.15vw, 1.08rem) !important;
+      font-style: italic !important;
+      letter-spacing: 0.02em !important;
+      text-transform: none !important;
+      color: rgba(223, 190, 100, 0.88) !important;
+      margin: -0.2rem 0 0.1rem 0 !important;
+      line-height: 1.45 !important;
+      opacity: 0;
+      will-change: opacity !important;
+    }
+
+    .step-info {
+      font-family: 'Albert Sans', -apple-system, sans-serif !important;
+      font-size: clamp(0.88rem, 1vw, 0.96rem) !important;
+      line-height: 1.72 !important;
+      color: rgba(246, 244, 238, 0.65) !important;
+      margin: 0 !important;
+      max-width: 460px !important;
+      opacity: 0;
+      will-change: opacity !important;
+    }
+
+    /* Historical Performance: mysterious, antique candlelit character */
+    #card-historical .discipline-visual-box {
+      border: 1px solid rgba(225, 175, 75, 0.55) !important;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.98), 0 0 45px rgba(212, 145, 45, 0.22) !important;
+    }
+
+    .plate-historical {
+      background:
+        radial-gradient(circle at 50% 35%, rgba(132, 85, 34, 0.55), rgba(16, 11, 7, 0.98)),
+        linear-gradient(140deg, #24160d 0%, #0d0806 100%) !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .plate-historical::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background: radial-gradient(circle at 75% 25%, rgba(255, 205, 120, 0.12), transparent 60%) !important;
+      mix-blend-mode: color-dodge !important;
+      pointer-events: none !important;
+    }
+
+    #card-historical .step-lead {
+      color: rgba(241, 207, 123, 0.9) !important;
+    }
+
+    /* Intimate, seamless faculty signature (no card border or heavy divider) */
+    .step-instructor {
+      margin-top: 1.4rem !important;
+      padding-top: 0 !important;
+      border-top: none !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 1.1rem !important;
+    }
+
+    /* Architectural vertical portrait frame ready for real photography */
+    .instructor-avatar-frame {
+      width: 48px !important;
+      height: 60px !important;
+      border-radius: 2px !important;
+      border: 1px solid rgba(212, 175, 55, 0.3) !important;
+      background: #141113 !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+      overflow: hidden !important;
+      opacity: 0;
+      will-change: opacity !important;
+    }
+
+    .instructor-avatar-frame img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+
+    .instructor-avatar-initials {
+      font-family: 'Cinzel', serif !important;
+      font-size: 0.72rem !important;
+      letter-spacing: 0.1em !important;
+      color: rgba(212, 175, 55, 0.75) !important;
+    }
+
+    .instructor-meta {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.15rem !important;
+      opacity: 0;
+      will-change: opacity !important;
+    }
+
+    .instructor-eyebrow {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.65rem !important;
+      letter-spacing: 0.22em !important;
+      text-transform: uppercase !important;
+      color: var(--color-gold) !important;
+      line-height: 1 !important;
+      margin-bottom: 0.15rem !important;
+    }
+
+    .instructor-name {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 600 !important;
+      color: var(--color-ivory) !important;
+      margin: 0 !important;
+      line-height: 1.2 !important;
+    }
+
+    .instructor-discipline {
+      font-family: 'Albert Sans', sans-serif !important;
+      font-size: 0.8rem !important;
+      color: rgba(246, 244, 238, 0.55) !important;
+      line-height: 1.3 !important;
+    }
+
+    .instructor-link {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.35rem !important;
+      margin-top: 0.3rem !important;
+      font-family: 'Albert Sans', sans-serif !important;
+      font-size: 0.74rem !important;
+      letter-spacing: 0.04em !important;
+      color: rgba(212, 175, 55, 0.85) !important;
+      text-decoration: none !important;
+      transition: color 0.2s ease, gap 0.2s ease !important;
+    }
+
+    .instructor-link:hover {
+      color: #fdfbf7 !important;
+      gap: 0.55rem !important;
+    }
+
+    /* Final mobile overrides: placed after base rules so the compact card can fit */
+    @media (max-width: 768px) {
+      .discipline-center-card {
+        width: 94vw !important;
+        gap: 0.8rem !important;
+        padding: 0.9rem !important;
+      }
+
+      .discipline-visual-box {
+        aspect-ratio: 16 / 9 !important;
+        max-height: 30dvh !important;
+      }
+
+      .discipline-editorial-col {
+        gap: 0.65rem !important;
+      }
+
+      .step-index {
+        font-size: 0.64rem !important;
+        letter-spacing: 0.22em !important;
+      }
+
+      .step-name {
+        font-size: clamp(1.7rem, 8.4vw, 2.2rem) !important;
+        line-height: 1.06 !important;
+      }
+
+      .step-lead {
+        font-size: 0.86rem !important;
+        line-height: 1.32 !important;
+      }
+
+      .step-info {
+        font-size: 0.8rem !important;
+        line-height: 1.48 !important;
+      }
+
+      .step-instructor {
+        margin-top: 0.45rem !important;
+        gap: 0.75rem !important;
+      }
+
+      .instructor-avatar-frame {
+        width: 36px !important;
+        height: 46px !important;
+      }
+
+      .instructor-eyebrow {
+        font-size: 0.6rem !important;
+      }
+
+      .instructor-name {
+        font-size: 0.86rem !important;
+      }
+
+      .instructor-discipline,
+      .instructor-link {
+        font-size: 0.69rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <aside class="concept-notice" aria-label="Unpublished concept notice">
+    <span class="concept-notice-mark">Private Concept</span>
+    <p class="concept-notice-copy">
+      An unpublished design study for <strong>Rocsato Conservatory of Music</strong> by Forever Still Studio. Details shown are <strong>unverified</strong>.
+    </p>
+    <span class="concept-notice-status">Not for public release</span>
+  </aside>
+
+  <!-- Editorial Top-Right Masthead Navigation -->
+  <header class="rocsato-nav-header" id="rocsatoNav" aria-label="Main Navigation">
+    <nav>
+      <ul class="rocsato-nav-list">
+        <li><a href="#about" class="rocsato-nav-link">About</a></li>
+        <li class="rocsato-nav-divider" aria-hidden="true">·</li>
+        <li><a href="#recital-room" class="rocsato-nav-link">Recital Room</a></li>
+        <li class="rocsato-nav-divider" aria-hidden="true">·</li>
+        <li><a href="#enroll" class="rocsato-nav-link">Enroll</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Single scroll runner driving the whole fader timeline -->
+    <div class="portal-stage" id="portalStage" style="height: 2200vh;"></div>
+
+    <!-- ONE permanently locked viewport: nothing ever scrolls or translates in Y -->
+    <div class="viewport-stage" id="viewportStage" aria-label="Rocsato Experience">
+      
+      <!-- Scene 1: Opening Chamber & Monogram -->
+      <div class="opening-chamber" id="openingChamber">
+        <div class="aperture-rig" id="apertureRig" title="Click to trigger shine">
+          <img class="rcm-logo-asset" src="images/RCM.png" alt="Rocsato Conservatory of Music">
+          <div class="rcm-glint-sheen" aria-hidden="true">
+            <div class="rcm-glint-bar" id="rcmGlintBar"></div>
+          </div>
+        </div>
+        <p class="chamber-tagline chamber-subheading">Musical Preparation in a Classical Tradition</p>
+        <div class="scroll-invitation" id="scrollIndicator">
+          <span class="scroll-invitation-text">Scroll to begin</span>
+          <div class="scroll-invitation-line"></div>
+        </div>
+      </div>
+
+      <!-- Scene 2: Transit Darkness -->
+      <div class="transit-darkness" id="transitDarkness"></div>
+
+      <!-- Scene 3: "Find Your Instrument" Chamber -->
+      <div class="discovery-chamber" id="discoveryChamber">
+        <p class="discovery-kicker">The Disciplines of Rocsato</p>
+        <h1 class="discovery-title">Find Your Instrument</h1>
+        <div class="discovery-rule"></div>
+        <p class="discovery-caption">
+          Six disciplined traditions. Mastery cultivated through lineage, devotion, and rigorous acoustic study.
+        </p>
+      </div>
+
+      <!-- Scene 4: Discipline 01 — Piano -->
+      <div class="discipline-center-card" id="card-piano">
+        <div class="discipline-visual-box" id="pic-piano">
+          <img src="images/ebuen-clemente-jr-H5Iw3Xz0vxM-unsplash.jpg" alt="Piano">
+        </div>
+        <div class="discipline-editorial-col">
+          <span class="step-index" id="idx-piano">FIND YOUR INSTRUMENT</span>
+          <h2 class="step-name" id="name-piano">Piano</h2>
+          <p class="step-lead" id="lead-piano">Where discipline becomes expression.</p>
+          <p class="step-info" id="info-piano">
+            Build technique, confidence, and musical independence at the keyboard—from the first notes to advanced repertoire.
+          </p>
+          <div class="step-instructor" id="inst-piano">
+            <div class="instructor-avatar-frame" id="inst-pic-piano" aria-hidden="true">
+              <span class="instructor-avatar-initials">PF</span>
+            </div>
+            <div class="instructor-meta" id="inst-meta-piano">
+              <span class="instructor-eyebrow">Studio Professor</span>
+              <h3 class="instructor-name">Elena Rostova</h3>
+              <span class="instructor-discipline">Piano Faculty</span>
+              <a href="#faculty" class="instructor-link">Meet the Instructor <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 5: Discipline 02 — Strings -->
+      <div class="discipline-center-card" id="card-strings">
+        <div class="discipline-visual-box" id="pic-strings">
+          <img src="images/strings.png" alt="Strings">
+        </div>
+        <div class="discipline-editorial-col">
+          <span class="step-index" id="idx-strings">FIND YOUR INSTRUMENT</span>
+          <h2 class="step-name" id="name-strings">Strings</h2>
+          <p class="step-lead" id="lead-strings">Learn to make the instrument sing.</p>
+          <p class="step-info" id="info-strings">
+            Develop a strong technical foundation while learning the phrasing, sensitivity, and musicianship that give string playing its voice.
+          </p>
+          <div class="step-instructor" id="inst-strings">
+            <div class="instructor-avatar-frame" id="inst-pic-strings" aria-hidden="true">
+              <span class="instructor-avatar-initials">ST</span>
+            </div>
+            <div class="instructor-meta" id="inst-meta-strings">
+              <span class="instructor-eyebrow">Studio Professor</span>
+              <h3 class="instructor-name">David Chen</h3>
+              <span class="instructor-discipline">Strings Faculty</span>
+              <a href="#faculty" class="instructor-link">Meet the Instructor <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 6: Discipline 03 — Brass -->
+      <div class="discipline-center-card" id="card-brass">
+        <div class="discipline-visual-box" id="pic-brass">
+          <img src="images/brass.png" alt="Brass">
+        </div>
+        <div class="discipline-editorial-col">
+          <span class="step-index" id="idx-brass">FIND YOUR INSTRUMENT</span>
+          <h2 class="step-name" id="name-brass">Brass</h2>
+          <p class="step-lead" id="lead-brass">Sound with presence.</p>
+          <p class="step-info" id="info-brass">
+            Build breath, tone, control, and confidence while discovering the power and color of the brass tradition.
+          </p>
+          <div class="step-instructor" id="inst-brass">
+            <div class="instructor-avatar-frame" id="inst-pic-brass" aria-hidden="true">
+              <span class="instructor-avatar-initials">BR</span>
+            </div>
+            <div class="instructor-meta" id="inst-meta-brass">
+              <span class="instructor-eyebrow">Studio Professor</span>
+              <h3 class="instructor-name">Marcus Vance</h3>
+              <span class="instructor-discipline">Brass Faculty</span>
+              <a href="#faculty" class="instructor-link">Meet the Instructor <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 7: Discipline 04 — Woodwinds -->
+      <div class="discipline-center-card" id="card-woodwinds">
+        <div class="discipline-visual-box" id="pic-woodwinds">
+          <img src="images/woodwinds.png" alt="Woodwinds">
+        </div>
+        <div class="discipline-editorial-col">
+          <span class="step-index" id="idx-woodwinds">FIND YOUR INSTRUMENT</span>
+          <h2 class="step-name" id="name-woodwinds">Woodwinds</h2>
+          <p class="step-lead" id="lead-woodwinds">Precision. Color. Character.</p>
+          <p class="step-info" id="info-woodwinds">
+            Develop breath, articulation, technique, and musical expression across the rich voices of the woodwind family.
+          </p>
+          <div class="step-instructor" id="inst-woodwinds">
+            <div class="instructor-avatar-frame" id="inst-pic-woodwinds" aria-hidden="true">
+              <span class="instructor-avatar-initials">WW</span>
+            </div>
+            <div class="instructor-meta" id="inst-meta-woodwinds">
+              <span class="instructor-eyebrow">Studio Professor</span>
+              <h3 class="instructor-name">Claire Laurent</h3>
+              <span class="instructor-discipline">Woodwinds Faculty</span>
+              <a href="#faculty" class="instructor-link">Meet the Instructor <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 8: Discipline 05 — Voice -->
+      <div class="discipline-center-card" id="card-voice">
+        <div class="discipline-visual-box" id="pic-voice">
+          <img src="images/voice.png" alt="Voice">
+        </div>
+        <div class="discipline-editorial-col">
+          <span class="step-index" id="idx-voice">FIND YOUR INSTRUMENT</span>
+          <h2 class="step-name" id="name-voice">Voice</h2>
+          <p class="step-lead" id="lead-voice">Your instrument is already with you.</p>
+          <p class="step-info" id="info-voice">
+            Build healthy technique, confidence, and artistry while discovering the range and character of your own voice.
+          </p>
+          <div class="step-instructor" id="inst-voice">
+            <div class="instructor-avatar-frame" id="inst-pic-voice" aria-hidden="true">
+              <span class="instructor-avatar-initials">VO</span>
+            </div>
+            <div class="instructor-meta" id="inst-meta-voice">
+              <span class="instructor-eyebrow">Studio Professor</span>
+              <h3 class="instructor-name">Isabella Moretti</h3>
+              <span class="instructor-discipline">Vocal Faculty</span>
+              <a href="#faculty" class="instructor-link">Meet the Instructor <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 9: Discipline 06 — Historical Performance -->
+      <div class="discipline-center-card" id="card-historical">
+        <div class="discipline-visual-box" id="pic-historical">
+          <img src="images/historical.png" alt="Historical Performance">
+        </div>
+        <div class="discipline-editorial-col">
+          <span class="step-index" id="idx-historical" style="color: #dfbe64;">FIND YOUR INSTRUMENT</span>
+          <h2 class="step-name" id="name-historical">Historical Performance</h2>
+          <p class="step-lead" id="lead-historical">Hear the past come alive.</p>
+          <p class="step-info" id="info-historical">
+            Explore historic instruments, performance practices, and musical traditions through the sounds and techniques that shaped earlier centuries.
+          </p>
+          <div class="step-instructor" id="inst-historical">
+            <div class="instructor-avatar-frame" id="inst-pic-historical" style="border-color: rgba(223, 190, 100, 0.5); background: #1f140c;" aria-hidden="true">
+              <span class="instructor-avatar-initials" style="color: #dfbe64;">HP</span>
+            </div>
+            <div class="instructor-meta" id="inst-meta-historical">
+              <span class="instructor-eyebrow" style="color: #dfbe64;">Early Music Specialist</span>
+              <h3 class="instructor-name">Julian Thorne</h3>
+              <span class="instructor-discipline">Historical Practices Faculty</span>
+              <a href="#faculty" class="instructor-link" style="color: #dfbe64;">Meet the Instructor <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Master Cinematic Conductor: Act 1 (Prologue) & Act 2 (All 6 Disciplines)
+    (function() {
+      const opening = document.getElementById('openingChamber');
+      const rig = document.getElementById('apertureRig');
+      const dark = document.getElementById('transitDarkness');
+      const disc = document.getElementById('discoveryChamber');
+      const tagline = document.querySelector('.chamber-tagline');
+      const prompt = document.getElementById('scrollIndicator');
+      const navHeader = document.getElementById('rocsatoNav');
+
+      const disciplineKeys = ['piano', 'strings', 'brass', 'woodwinds', 'voice', 'historical'];
+      const disciplines = disciplineKeys.map(key => ({
+        key: key,
+        card: document.getElementById('card-' + key),
+        pic: document.getElementById('pic-' + key),
+        idx: document.getElementById('idx-' + key),
+        name: document.getElementById('name-' + key),
+        lead: document.getElementById('lead-' + key),
+        info: document.getElementById('info-' + key),
+        instPic: document.getElementById('inst-pic-' + key),
+        instMeta: document.getElementById('inst-meta-' + key),
+      }));
+
+      // Timeline mapping:
+      // 0.00 -> 0.14 : Approach toward the monogram
+      // 0.14 -> 0.19 : Pass into darkness
+      // 0.19 -> 0.22 : Pure dark breath
+      // 0.22 -> 0.26 : "Find Your Instrument" dissolve and hold
+      // 0.26 -> 0.29 : Title fades to black
+      // 0.29 -> 0.32 : Quiet pause before Piano awakens
+      // 0.32 -> 1.00 : Disciplines 1 through 6
+      const DISCIPLINES_START = 0.32;
+      const DISCIPLINES_END = 1.00;
+      const totalDiscCount = disciplines.length;
+
+      function onScroll() {
+        if (navHeader) {
+          if (window.scrollY > 30) {
+            navHeader.classList.add('is-scrolled');
+          } else {
+            navHeader.classList.remove('is-scrolled');
+          }
+        }
+
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (maxScroll <= 0) return;
+        const p = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+
+        // Hide all discipline cards helper
+        function hideAllDisciplines() {
+          for (let i = 0; i < disciplines.length; i++) {
+            const d = disciplines[i];
+            if (d.card) {
+              d.card.style.display = 'none';
+              d.card.style.opacity = 0;
+              d.card.style.pointerEvents = 'none';
+            }
+          }
+        }
+
+        // ====================================================================
+        // ACT 1: THE PROLOGUE (0.00 -> 0.32)
+        // ====================================================================
+        if (p < DISCIPLINES_START) {
+          hideAllDisciplines();
+
+          // Subtitle & scroll cue fade out immediately on first scroll
+          const textFade = Math.max(1 - Math.min(p / 0.03, 1), 0);
+          if (tagline) tagline.style.opacity = textFade * 0.88;
+          if (prompt) prompt.style.opacity = textFade;
+
+          // 1. Approach toward the counter of the C (0.00 -> 0.14)
+          if (p <= 0.14) {
+            const prog = p / 0.14;
+            const eased = Math.pow(prog, 2.0);
+            const scale = 1 + eased * 14;
+
+            if (rig) rig.style.transform = `translate(${4 * eased}%, ${16 * eased}%) scale(${scale})`;
+            if (opening) {
+              opening.style.display = 'flex';
+              opening.style.opacity = 1;
+              opening.style.pointerEvents = p < 0.02 ? 'auto' : 'none';
+            }
+            if (dark) dark.style.opacity = 0;
+            if (disc) { disc.style.opacity = 0; disc.style.display = 'none'; disc.style.pointerEvents = 'none'; }
+            return;
+          }
+
+          // 2. Pass through the monogram into darkness (0.14 -> 0.19)
+          if (p > 0.14 && p <= 0.19) {
+            const prog = (p - 0.14) / 0.05;
+            const scale = 15 + Math.pow(prog, 1.8) * 45;
+
+            if (rig) rig.style.transform = `translate(4%, 16%) scale(${scale})`;
+            if (dark) dark.style.opacity = Math.min(prog * 1.3, 1);
+            if (opening) {
+              opening.style.display = 'flex';
+              opening.style.opacity = Math.max(1 - prog * 1.4, 0);
+            }
+            if (disc) { disc.style.opacity = 0; disc.style.display = 'none'; disc.style.pointerEvents = 'none'; }
+            return;
+          }
+
+          // 3. Pure darkness breath (0.19 -> 0.22)
+          if (p > 0.19 && p <= 0.22) {
+            if (opening) { opening.style.opacity = 0; opening.style.display = 'none'; }
+            if (dark) dark.style.opacity = 1;
+            if (disc) { disc.style.opacity = 0; disc.style.display = 'none'; disc.style.pointerEvents = 'none'; }
+            return;
+          }
+
+          // 4. "Find Your Instrument" title dissolves in and holds (0.22 -> 0.26)
+          if (p > 0.22 && p <= 0.26) {
+            if (opening) { opening.style.opacity = 0; opening.style.display = 'none'; }
+            if (dark) dark.style.opacity = 1;
+            const prog = Math.min((p - 0.22) / 0.02, 1);
+            if (disc) {
+              disc.style.display = 'flex';
+              disc.style.opacity = prog;
+              disc.style.pointerEvents = prog > 0.5 ? 'auto' : 'none';
+            }
+            return;
+          }
+
+          // 5. Title fades to black (0.26 -> 0.29)
+          if (p > 0.26 && p <= 0.29) {
+            if (opening) { opening.style.opacity = 0; opening.style.display = 'none'; }
+            if (dark) dark.style.opacity = 1;
+            const fadeProg = (p - 0.26) / 0.03;
+            const titleFade = Math.max(1 - fadeProg, 0);
+            if (disc) {
+              disc.style.opacity = titleFade;
+              disc.style.display = titleFade > 0.01 ? 'flex' : 'none';
+              disc.style.pointerEvents = 'none';
+            }
+            return;
+          }
+
+          // 6. Quiet pause before Piano awakens (0.29 -> 0.32)
+          if (p > 0.29 && p < 0.32) {
+            if (opening) { opening.style.opacity = 0; opening.style.display = 'none'; }
+            if (dark) dark.style.opacity = 1;
+            if (disc) { disc.style.opacity = 0; disc.style.display = 'none'; disc.style.pointerEvents = 'none'; }
+            return;
+          }
+        }
+
+        // ====================================================================
+        // ACT 2: ALL 6 DISCIPLINES (0.32 -> 1.00)
+        // The final 18% of each scene is a dark handoff: text withdraws first,
+        // then the image falls away as the next image begins waiting in shadow.
+        // ====================================================================
+        if (p >= DISCIPLINES_START) {
+          if (opening) { opening.style.opacity = 0; opening.style.display = 'none'; }
+          if (dark) dark.style.opacity = 1;
+          if (disc) { disc.style.opacity = 0; disc.style.display = 'none'; disc.style.pointerEvents = 'none'; }
+
+          const activeProg = (p - DISCIPLINES_START) / (DISCIPLINES_END - DISCIPLINES_START);
+          const rawIndex = activeProg * totalDiscCount;
+          const currentIndex = Math.min(Math.floor(rawIndex), totalDiscCount - 1);
+          const localProg = Math.min(Math.max(rawIndex - currentIndex, 0), 1);
+          const hasNextDiscipline = currentIndex < totalDiscCount - 1;
+          const handoffProg = hasNextDiscipline
+            ? Math.min(Math.max((localProg - 0.82) / 0.18, 0), 1)
+            : 0;
+
+          for (let i = 0; i < totalDiscCount; i++) {
+            const d = disciplines[i];
+            if (!d.card) continue;
+
+            const isCurrent = i === currentIndex;
+            const isIncoming = hasNextDiscipline && i === currentIndex + 1 && handoffProg > 0;
+
+            if (!isCurrent && !isIncoming) {
+              d.card.style.display = 'none';
+              d.card.style.opacity = 0;
+              d.card.style.pointerEvents = 'none';
+              continue;
+            }
+
+            d.card.style.display = 'grid';
+            d.card.style.pointerEvents = isCurrent ? 'auto' : 'none';
+
+            if (isIncoming) {
+              // A restrained premonition of the next room: image only, held under
+              // the departing scene and never bright enough to compete with it.
+              d.card.style.zIndex = 39;
+              d.card.style.opacity = handoffProg * 0.12;
+              if (d.pic) d.pic.style.opacity = 1;
+              if (d.idx) d.idx.style.opacity = 0;
+              if (d.name) d.name.style.opacity = 0;
+              if (d.lead) d.lead.style.opacity = 0;
+              if (d.info) d.info.style.opacity = 0;
+              if (d.instPic) d.instPic.style.opacity = 0;
+              if (d.instMeta) d.instMeta.style.opacity = 0;
+              continue;
+            }
+
+            d.card.style.zIndex = 40;
+
+            // The first image carries forward from the faint handoff rather than
+            // resetting to black at the boundary between discipline slices.
+            const imgProg = Math.min(Math.max(localProg / 0.20, 0), 1);
+            let cardAlpha = 0.16 + (imgProg * 0.84);
+
+            // Outgoing hierarchy: language disappears, then image, into black.
+            if (hasNextDiscipline && localProg > 0.82) {
+              cardAlpha = Math.max(1 - handoffProg, 0);
+            }
+            d.card.style.opacity = cardAlpha;
+
+            const textExit = hasNextDiscipline
+              ? Math.max(1 - Math.min(Math.max((localProg - 0.80) / 0.10, 0), 1), 0)
+              : 1;
+            const imageExit = hasNextDiscipline
+              ? Math.max(1 - Math.min(Math.max((localProg - 0.86) / 0.14, 0), 1), 0)
+              : 1;
+
+            // STAGGERED CADENCE (all elements assemble within 0.00 -> 0.44):
+            // 1. Picture: 0.00 -> 0.20
+            if (d.pic) d.pic.style.opacity = imgProg * imageExit;
+
+            // 2. Eyebrow, Name & Lead: 0.14 -> 0.28
+            const nameProg = Math.min(Math.max((localProg - 0.14) / 0.14, 0), 1);
+            if (d.idx) d.idx.style.opacity = nameProg * textExit;
+            if (d.name) d.name.style.opacity = nameProg * textExit;
+            if (d.lead) d.lead.style.opacity = nameProg * textExit;
+
+            // 3. Repertoire / Editorial Body: 0.24 -> 0.36
+            const infoProg = Math.min(Math.max((localProg - 0.24) / 0.12, 0), 1);
+            if (d.info) d.info.style.opacity = infoProg * textExit;
+
+            // 4. Instructor Portrait frame: 0.32 -> 0.42
+            const instPicProg = Math.min(Math.max((localProg - 0.32) / 0.10, 0), 1);
+            if (d.instPic) d.instPic.style.opacity = instPicProg * textExit;
+
+            // 5. Instructor Meta: 0.36 -> 0.44
+            const instMetaProg = Math.min(Math.max((localProg - 0.36) / 0.08, 0), 1);
+            if (d.instMeta) d.instMeta.style.opacity = instMetaProg * textExit;
+          }
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>
