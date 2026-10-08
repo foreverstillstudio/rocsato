@@ -222,10 +222,10 @@
       overflow-x: hidden !important;
     }
 
-    /* Extended scroll track for unhurried cinematic pacing across all 6 disciplines */
+    /* Extended scroll track for unhurried cinematic pacing across all acts */
     .portal-stage {
       position: relative !important;
-      height: 2800vh !important;
+      height: 3600vh !important;
       width: 100% !important;
       background: transparent !important;
     }
@@ -260,9 +260,41 @@
       z-index: 22 !important;
     }
 
+    /* Historic Estate Backdrop: grounded in place, dusk-toned and vignetted */
+    .chamber-bg-wrap {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      z-index: 1 !important;
+      pointer-events: none !important;
+      will-change: opacity !important;
+    }
+
+    .chamber-bg-image {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center 36% !important;
+      filter: brightness(0.68) contrast(1.05) saturate(0.95) !important;
+      transform: scale(1.03) !important;
+    }
+
+    .chamber-bg-scrim {
+      position: absolute !important;
+      inset: 0 !important;
+      background:
+        radial-gradient(circle at center 40%, rgba(8, 7, 8, 0.15) 0%, rgba(8, 7, 8, 0.52) 62%, rgba(8, 7, 8, 0.92) 100%),
+        linear-gradient(180deg, rgba(8, 7, 8, 0.55) 0%, transparent 18%, transparent 68%, #080708 100%) !important;
+    }
+
     /* RCM Emblem Rig: dead-center anchor */
     .aperture-rig {
       position: relative !important;
+      z-index: 5 !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -271,6 +303,7 @@
       margin-top: 2rem !important;
       transform-origin: 46% 34% !important; /* Red-dot focal point inside the C */
       will-change: transform !important;
+      filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.95)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8));
     }
 
     .rcm-logo-asset {
@@ -358,7 +391,10 @@
       margin: 1.8rem 0 0 0 !important;
       text-align: center !important;
       font-weight: 400 !important;
-      opacity: 0.88;
+      opacity: 0.92;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.9);
+      position: relative !important;
+      z-index: 5 !important;
       will-change: opacity !important;
     }
 
@@ -371,6 +407,7 @@
       align-items: center !important;
       gap: 0.6rem !important;
       z-index: 24 !important;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
       will-change: opacity !important;
     }
 
@@ -821,7 +858,7 @@
     }
 
     /* --------------------------------------------------------------------------
-       THE RECITAL ROOM
+       ACT 3: THE RECITAL ROOM AT HILLHURST (VISITING ARTIST RESIDENCY)
        -------------------------------------------------------------------------- */
     .recital-chamber {
       position: absolute !important;
@@ -829,276 +866,301 @@
       width: 100% !important;
       height: 100% !important;
       display: none;
-      flex-direction: column !important;
-      align-items: center !important;
+      align-items: flex-start !important;
       justify-content: center !important;
-      padding: 6rem 2rem 2rem 2rem !important;
+      /* Generous clearance under top concept bar and editorial nav */
+      padding: calc(var(--concept-banner-height) + 6.5rem) clamp(1.5rem, 3.5vw, 3.5rem) 4rem clamp(1.5rem, 3.5vw, 3.5rem) !important;
       box-sizing: border-box !important;
       z-index: 50 !important;
       opacity: 0;
-      pointer-events: none !important;
+      pointer-events: none;
+      background: #080708 !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
       will-change: opacity, transform !important;
     }
 
-    .recital-frame {
-      width: 100% !important;
-      max-width: 1100px !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
+    .recital-chamber.is-active {
+      pointer-events: auto !important;
     }
 
-    .recital-eyebrow {
-      font-family: 'Cinzel', serif !important;
-      font-size: 0.7rem !important;
-      letter-spacing: 0.32em !important;
-      text-transform: uppercase !important;
-      color: var(--color-gold) !important;
-      margin-bottom: 0.6rem !important;
-      opacity: 0;
-      transform: translateY(10px) !important;
-      transition: all 0.8s ease !important;
-    }
-
-    .recital-title {
-      font-family: 'Cinzel', serif !important;
-      font-size: clamp(2rem, 5vw, 3.5rem) !important;
-      color: var(--color-ivory) !important;
-      margin: 0 0 3.5rem 0 !important;
-      text-align: center !important;
-      font-weight: 400 !important;
-      opacity: 0;
-      transform: translateY(15px) !important;
-      transition: all 0.9s ease 0.1s !important;
-    }
-
-    .recital-grid {
-      display: grid !important;
-      grid-template-columns: repeat(3, 1fr) !important;
-      gap: 2rem !important;
-      width: 100% !important;
-    }
-
-    .recital-item {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 1.1rem !important;
-      opacity: 0;
-      transform: translateY(20px) !important;
-      transition: all 1s ease !important;
-    }
-
-    .recital-chamber.is-active .recital-eyebrow,
-    .recital-chamber.is-active .recital-title,
-    .recital-chamber.is-active .recital-item {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-
-    .recital-item:nth-child(1) { transition-delay: 0.2s !important; }
-    .recital-item:nth-child(2) { transition-delay: 0.3s !important; }
-    .recital-item:nth-child(3) { transition-delay: 0.4s !important; }
-
-    .recital-thumb {
-      position: relative !important;
-      aspect-ratio: 16 / 10 !important;
-      border: 1px solid rgba(212, 175, 55, 0.25) !important;
-      border-radius: 2px !important;
-      overflow: hidden !important;
-      background: #0a090a !important;
-    }
-
-    .recital-thumb img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      opacity: 0.65;
-      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease !important;
-    }
-
-    .recital-play-overlay {
-      position: absolute !important;
-      inset: 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      background: radial-gradient(circle, rgba(8, 7, 8, 0) 0%, rgba(8, 7, 8, 0.4) 100%) !important;
-      transition: background 0.4s ease !important;
-    }
-
-    .play-icon {
-      width: 42px !important;
-      height: 42px !important;
-      border: 1px solid rgba(253, 251, 247, 0.4) !important;
-      border-radius: 50% !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      background: rgba(8, 7, 8, 0.2) !important;
-      backdrop-filter: blur(4px) !important;
-      transition: all 0.3s ease !important;
-    }
-
-    .play-icon::after {
-      content: '' !important;
-      width: 0 !important;
-      height: 0 !important;
-      border-top: 6px solid transparent !important;
-      border-bottom: 6px solid transparent !important;
-      border-left: 10px solid var(--color-ivory) !important;
-      margin-left: 4px !important;
-      opacity: 0.8 !important;
-    }
-
-    .recital-item:hover .recital-thumb img {
-      transform: scale(1.04) !important;
-      opacity: 0.9 !important;
-    }
-
-    .recital-item:hover .play-icon {
-      border-color: var(--color-gold) !important;
-      background: rgba(212, 175, 55, 0.15) !important;
-      transform: scale(1.1) !important;
-    }
-
-    .recital-meta {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 0.2rem !important;
-    }
-
-    .recital-date {
-      font-family: 'Cinzel', serif !important;
-      font-size: 0.62rem !important;
-      letter-spacing: 0.12em !important;
-      color: var(--color-gold) !important;
-      text-transform: uppercase !important;
-    }
-
-    .recital-label {
-      font-family: 'Cinzel', serif !important;
-      font-size: 1.05rem !important;
-      font-weight: 500 !important;
-      color: var(--color-ivory) !important;
-      margin: 0 !important;
-      line-height: 1.3 !important;
-    }
-
-    .recital-artist {
-      font-family: 'Albert Sans', sans-serif !important;
-      font-size: 0.82rem !important;
-      color: rgba(253, 251, 247, 0.55) !important;
-      margin-top: 0.1rem !important;
-    }
-
-    @media (max-width: 768px) {
-      .recital-grid {
-        grid-template-columns: 1fr !important;
-        gap: 2.2rem !important;
-      }
-      .recital-chamber {
-        padding: 5rem 1.5rem 2rem 1.5rem !important;
-      }
-      .recital-title {
-        margin-bottom: 2.5rem !important;
-      }
-      .recital-item {
-        gap: 0.8rem !important;
-      }
-    }
-
-    /* Full-screen Recital Room finale */
-    .recital-chamber {
-      display: none;
-      padding: 0 !important;
-      overflow: hidden !important;
-      background: #080708 !important;
-    }
-
+    /* Brighter, more atmospheric room photograph reveal */
     .recital-room-image {
       position: absolute !important;
       inset: 0 !important;
       width: 100% !important;
       height: 100% !important;
       object-fit: cover !important;
-      object-position: center !important;
-      opacity: 0.72 !important;
+      object-position: center 42% !important;
+      opacity: 0.62 !important;
+      filter: saturate(1.02) brightness(0.88) contrast(1.02) !important;
       transform: scale(1.03) !important;
-      transition: transform 2.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease !important;
+      transition: transform 3s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s ease !important;
+      z-index: 1 !important;
     }
 
     .recital-chamber.is-active .recital-room-image {
-      opacity: 0.9 !important;
+      opacity: 0.72 !important;
       transform: scale(1) !important;
     }
 
+    /* Softer, luminous vignette allowing the room and Steinway to shine */
     .recital-room-scrim {
       position: absolute !important;
       inset: 0 !important;
       background:
-        linear-gradient(90deg, rgba(8, 7, 8, 0.12) 0%, rgba(8, 7, 8, 0.42) 44%, rgba(8, 7, 8, 0.88) 100%),
-        linear-gradient(0deg, rgba(8, 7, 8, 0.62) 0%, transparent 55%) !important;
+        radial-gradient(circle at 45% 45%, rgba(8, 7, 8, 0.28) 0%, rgba(8, 7, 8, 0.58) 65%, rgba(8, 7, 8, 0.88) 100%),
+        linear-gradient(180deg, rgba(8, 7, 8, 0.55) 0%, transparent 22%, transparent 75%, #080708 100%) !important;
+      z-index: 2 !important;
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) !important;
     }
 
-    .recital-frame {
+    .recital-chamber.is-active .recital-room-scrim {
+      opacity: 1 !important;
+    }
+
+    .recital-stage-container {
       position: relative !important;
-      z-index: 1 !important;
-      width: min(38vw, 620px) !important;
-      margin: auto clamp(1.5rem, 8vw, 9rem) auto auto !important;
-      align-items: flex-start !important;
+      z-index: 10 !important;
+      width: 100% !important;
+      max-width: 1220px !important;
+      display: grid !important;
+      grid-template-columns: minmax(320px, 460px) 1fr !important;
+      gap: clamp(2rem, 4vw, 4rem) !important;
+      align-items: center !important;
+      margin: 0 auto 3rem auto !important;
+    }
+
+    /* Left Dossier: The Acoustic Truth & Philosophy - Individually animated titles */
+    .recital-editorial-dossier {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1.1rem !important;
       text-align: left !important;
     }
 
-    .recital-eyebrow,
-    .recital-title {
-      text-align: left !important;
-    }
-
-    .recital-title {
-      margin-bottom: 1.4rem !important;
-      font-size: clamp(2.6rem, 6vw, 5.6rem) !important;
-      line-height: 0.98 !important;
-      max-width: 10ch !important;
-    }
-
-    .recital-caption {
-      max-width: 34rem !important;
-      margin: 0 !important;
-      font-family: 'Albert Sans', -apple-system, sans-serif !important;
-      font-size: clamp(0.92rem, 1.3vw, 1.08rem) !important;
-      font-weight: 300 !important;
-      line-height: 1.7 !important;
-      color: rgba(253, 251, 247, 0.76) !important;
-      opacity: 0 !important;
+    .recital-editorial-dossier > * {
+      opacity: 0;
       transform: translateY(18px) !important;
-      transition: opacity 0.9s ease 0.3s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s !important;
+      transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
     }
 
-    .recital-chamber.is-active .recital-caption {
+    .recital-chamber.is-active .recital-editorial-dossier > * {
       opacity: 1 !important;
       transform: translateY(0) !important;
     }
 
-    @media (max-width: 768px) {
-      .recital-room-image {
-        object-position: 62% center !important;
-      }
+    .recital-chamber.is-active .recital-editorial-dossier > *:nth-child(1) { transition-delay: 0.4s !important; }
+    .recital-chamber.is-active .recital-editorial-dossier > *:nth-child(2) { transition-delay: 0.55s !important; }
+    .recital-chamber.is-active .recital-editorial-dossier > *:nth-child(3) { transition-delay: 0.7s !important; }
+    .recital-chamber.is-active .recital-editorial-dossier > *:nth-child(4) { transition-delay: 0.85s !important; }
+    .recital-chamber.is-active .recital-editorial-dossier > *:nth-child(5) { transition-delay: 1.0s !important; }
 
-      .recital-room-scrim {
-        background:
-          linear-gradient(90deg, rgba(8, 7, 8, 0.42) 0%, rgba(8, 7, 8, 0.86) 100%),
-          linear-gradient(0deg, rgba(8, 7, 8, 0.72) 0%, transparent 62%) !important;
-      }
+    .recital-hall-kicker {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.28em !important;
+      text-transform: uppercase !important;
+      color: var(--color-gold) !important;
+      margin: 0 !important;
+    }
 
-      .recital-frame {
-        width: auto !important;
-        margin: auto 1.5rem 2.7rem !important;
-      }
+    .recital-hall-title {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: clamp(2.3rem, 4vw, 3.6rem) !important;
+      line-height: 1.1 !important;
+      font-weight: 600 !important;
+      color: var(--color-ivory) !important;
+      margin: 0 !important;
+    }
 
-      .recital-title {
-        font-size: clamp(2.45rem, 13vw, 3.8rem) !important;
+    .recital-hall-lead {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: clamp(1.02rem, 1.25vw, 1.18rem) !important;
+      font-style: italic !important;
+      color: rgba(223, 190, 100, 0.94) !important;
+      margin: 0 !important;
+      line-height: 1.45 !important;
+    }
+
+    .recital-hall-copy {
+      font-family: 'Albert Sans', -apple-system, sans-serif !important;
+      font-size: 0.92rem !important;
+      line-height: 1.76 !important;
+      font-weight: 300 !important;
+      color: rgba(253, 251, 247, 0.78) !important;
+      margin: 0 !important;
+    }
+
+    .recital-hall-copy strong {
+      color: var(--color-ivory) !important;
+      font-weight: 500 !important;
+    }
+
+    /* Interactive Acoustic Comparison Switcher */
+    .acoustic-demo-box {
+      margin-top: 0.6rem !important;
+      padding: 1.1rem 1.25rem !important;
+      background: rgba(18, 14, 16, 0.88) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border: 1px solid rgba(212, 175, 55, 0.3) !important;
+      border-radius: 4px !important;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+
+    .acoustic-demo-label {
+      font-family: 'Cinzel', serif !important;
+      font-size: 0.64rem !important;
+      letter-spacing: 0.18em !important;
+      text-transform: uppercase !important;
+      color: var(--color-gold) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+    }
+
+    .acoustic-demo-buttons {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 0.6rem !important;
+    }
+
+    .acoustic-toggle-btn {
+      background: rgba(8, 7, 8, 0.85) !important;
+      border: 1px solid rgba(212, 175, 55, 0.28) !important;
+      color: rgba(253, 251, 247, 0.75) !important;
+      padding: 0.68rem 0.8rem !important;
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.66rem !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      cursor: pointer !important;
+      border-radius: 2px !important;
+      transition: all 0.25s ease !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.45rem !important;
+    }
+
+    .acoustic-toggle-btn.is-active,
+    .acoustic-toggle-btn:hover {
+      background: rgba(212, 175, 55, 0.2) !important;
+      border-color: #d4af37 !important;
+      color: #fdfbf7 !important;
+    }
+
+    .sound-pulse-dot {
+      width: 6px !important;
+      height: 6px !important;
+      border-radius: 50% !important;
+      background: #d4af37 !important;
+      opacity: 0;
+      transition: opacity 0.3s ease !important;
+    }
+
+    .acoustic-toggle-btn.is-active .sound-pulse-dot {
+      opacity: 1 !important;
+      box-shadow: 0 0 8px #d4af37 !important;
+    }
+
+    /* Visiting Artist Dossier & Cards */
+    .visiting-artist-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 1.25rem !important;
+    }
+
+    .artist-stream-card {
+      background: linear-gradient(145deg, rgba(24, 20, 22, 0.72) 0%, rgba(13, 11, 12, 0.85) 100%) !important;
+      border: 1px solid rgba(212, 175, 55, 0.2) !important;
+      border-radius: 3px !important;
+      padding: 1.5rem 1.6rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      gap: 0.9rem !important;
+      text-align: left !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75) !important;
+      opacity: 0;
+      transform: translateY(24px) !important;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    }
+
+    .recital-chamber.is-active .visiting-artist-grid .artist-stream-card:nth-child(1) { opacity: 1 !important; transform: translateY(0) !important; transition-delay: 0.45s !important; }
+    .recital-chamber.is-active .visiting-artist-grid .artist-stream-card:nth-child(2) { opacity: 1 !important; transform: translateY(0) !important; transition-delay: 0.55s !important; }
+    .recital-chamber.is-active .visiting-artist-grid .artist-stream-card:nth-child(3) { opacity: 1 !important; transform: translateY(0) !important; transition-delay: 0.65s !important; }
+    .recital-chamber.is-active .visiting-artist-grid .artist-stream-card:nth-child(4) { opacity: 1 !important; transform: translateY(0) !important; transition-delay: 0.75s !important; }
+
+    .artist-stream-card:hover {
+      transform: translateY(-3px) !important;
+      border-color: rgba(212, 175, 55, 0.55) !important;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.9), 0 0 24px rgba(212, 175, 55, 0.15) !important;
+    }
+
+    .artist-stream-num {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.64rem !important;
+      letter-spacing: 0.24em !important;
+      text-transform: uppercase !important;
+      color: var(--color-gold) !important;
+      display: block !important;
+      margin-bottom: 0.3rem !important;
+    }
+
+    .artist-stream-heading {
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 1.15rem !important;
+      font-weight: 600 !important;
+      color: var(--color-ivory) !important;
+      margin: 0.2rem 0 0.5rem 0 !important;
+      line-height: 1.25 !important;
+    }
+
+    .artist-stream-desc {
+      font-family: 'Albert Sans', -apple-system, sans-serif !important;
+      font-size: 0.82rem !important;
+      line-height: 1.62 !important;
+      font-weight: 300 !important;
+      color: rgba(253, 251, 247, 0.68) !important;
+      margin: 0 !important;
+    }
+
+    .artist-stream-action {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.4rem !important;
+      margin-top: 0.6rem !important;
+      font-family: 'Cinzel', serif !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      color: var(--color-gold) !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
+      transition: gap 0.25s ease, color 0.25s ease !important;
+    }
+
+    .artist-stream-action:hover {
+      gap: 0.65rem !important;
+      color: #fdfbf7 !important;
+    }
+
+    @media (max-width: 860px) {
+      .recital-stage-container {
+        grid-template-columns: 1fr !important;
+        gap: 2.2rem !important;
+      }
+      .visiting-artist-grid {
+        grid-template-columns: 1fr !important;
       }
     }
+
   </style>
 </head>
 <body>
@@ -1139,6 +1201,10 @@
       
       <!-- Scene 1: Opening Chamber & Monogram -->
       <div class="opening-chamber" id="openingChamber">
+        <div class="chamber-bg-wrap" id="chamberBgWrap" aria-hidden="true">
+          <img class="chamber-bg-image" src="images/image.png_20261007111728.jpg" alt="Rocsato Conservatory Estate">
+          <div class="chamber-bg-scrim"></div>
+        </div>
         <div class="aperture-rig" id="apertureRig" title="Click to trigger shine">
           <img class="rcm-logo-asset" src="images/RCM.png" alt="Rocsato Conservatory of Music">
           <div class="rcm-glint-sheen" aria-hidden="true">
@@ -1171,7 +1237,7 @@
           <img src="images/ebuen-clemente-jr-H5Iw3Xz0vxM-unsplash.jpg" alt="Piano">
         </div>
         <div class="discipline-editorial-col">
-          <span class="step-index" id="idx-piano">FIND YOUR INSTRUMENT</span>
+          <span class="step-index" id="idx-piano">01 — FIND YOUR INSTRUMENT</span>
           <h2 class="step-name" id="name-piano">Piano</h2>
           <p class="step-lead" id="lead-piano">Where discipline becomes expression.</p>
           <p class="step-info" id="info-piano">
@@ -1197,7 +1263,7 @@
           <img src="images/strings.png" alt="Strings">
         </div>
         <div class="discipline-editorial-col">
-          <span class="step-index" id="idx-strings">FIND YOUR INSTRUMENT</span>
+          <span class="step-index" id="idx-strings">02 — FIND YOUR INSTRUMENT</span>
           <h2 class="step-name" id="name-strings">Strings</h2>
           <p class="step-lead" id="lead-strings">Learn to make the instrument sing.</p>
           <p class="step-info" id="info-strings">
@@ -1223,7 +1289,7 @@
           <img src="images/brass.png" alt="Brass">
         </div>
         <div class="discipline-editorial-col">
-          <span class="step-index" id="idx-brass">FIND YOUR INSTRUMENT</span>
+          <span class="step-index" id="idx-brass">03 — FIND YOUR INSTRUMENT</span>
           <h2 class="step-name" id="name-brass">Brass</h2>
           <p class="step-lead" id="lead-brass">Sound with presence.</p>
           <p class="step-info" id="info-brass">
@@ -1249,7 +1315,7 @@
           <img src="images/woodwinds.png" alt="Woodwinds">
         </div>
         <div class="discipline-editorial-col">
-          <span class="step-index" id="idx-woodwinds">FIND YOUR INSTRUMENT</span>
+          <span class="step-index" id="idx-woodwinds">04 — FIND YOUR INSTRUMENT</span>
           <h2 class="step-name" id="name-woodwinds">Woodwinds</h2>
           <p class="step-lead" id="lead-woodwinds">Precision. Color. Character.</p>
           <p class="step-info" id="info-woodwinds">
@@ -1275,7 +1341,7 @@
           <img src="images/voice.png" alt="Voice">
         </div>
         <div class="discipline-editorial-col">
-          <span class="step-index" id="idx-voice">FIND YOUR INSTRUMENT</span>
+          <span class="step-index" id="idx-voice">05 — FIND YOUR INSTRUMENT</span>
           <h2 class="step-name" id="name-voice">Voice</h2>
           <p class="step-lead" id="lead-voice">Your instrument is already with you.</p>
           <p class="step-info" id="info-voice">
@@ -1301,7 +1367,7 @@
           <img src="images/historical.png" alt="Historical Performance">
         </div>
         <div class="discipline-editorial-col">
-          <span class="step-index" id="idx-historical" style="color: #dfbe64;">FIND YOUR INSTRUMENT</span>
+          <span class="step-index" id="idx-historical" style="color: #dfbe64;">06 — FIND YOUR INSTRUMENT</span>
           <h2 class="step-name" id="name-historical">Historical Performance</h2>
           <p class="step-lead" id="lead-historical">Hear the past come alive.</p>
           <p class="step-info" id="info-historical">
@@ -1321,14 +1387,78 @@
         </div>
       </div>
 
-      <!-- Scene 10: The Recital Room -->
-      <section class="recital-chamber" id="recitalChamber" aria-labelledby="recitalTitle">
-        <img class="recital-room-image" src="images/524926254_1069890038603351_1771843948896613313_n.jpg_20261007094547-2.jpg" alt="Rocsato Conservatory recital room with grand piano">
+      <!-- Scene 10: The Recital Room at Hillhurst (Visiting Artist Residency) -->
+      <section class="recital-chamber" id="recital-room" aria-labelledby="recitalTitle">
+        <img class="recital-room-image" src="images/524926254_1069890038603351_1771843948896613313_n.jpg_20261007094547-2.jpg" alt="The Recital Room at Hillhurst with Steinway Grand Piano">
         <div class="recital-room-scrim" aria-hidden="true"></div>
-        <div class="recital-frame">
-          <span class="recital-eyebrow">The Performance Tradition</span>
-          <h2 class="recital-title" id="recitalTitle">The Recital Room</h2>
-          <p class="recital-caption">Where discipline meets the stage. A room for performance, lineage, and the acoustic truth of the tradition.</p>
+
+        <div class="recital-stage-container">
+          <!-- Left Editorial Column -->
+          <div class="recital-editorial-dossier">
+            <p class="recital-hall-kicker">Hillhurst Estate · The Acoustic Sanctum</p>
+            <h2 class="recital-hall-title" id="recitalTitle">The Recital Room</h2>
+            <p class="recital-hall-lead">Some rooms hold sound. This one gives it back.</p>
+            <p class="recital-hall-copy">
+              A private, high-ceilinged acoustic space in rural Pennsylvania with timber floors, historic plaster resonance, and a grand piano. We do not rent an empty venue by the hour—we welcome <strong>Visiting Artists</strong> into a sanctuary built for concentrated acoustic craft.
+            </p>
+
+            <!-- Live Acoustic Demonstration -->
+            <div class="acoustic-demo-box">
+              <span class="acoustic-demo-label">
+                <span>Acoustic Comparison</span>
+                <span style="font-size: 0.58rem; color: rgba(253,251,247,0.45); font-family: 'Albert Sans', sans-serif;">Synthesized Acoustic Note</span>
+              </span>
+              <div class="acoustic-demo-buttons">
+                <button type="button" class="acoustic-toggle-btn" id="btnDryAcoustic">
+                  <span class="sound-pulse-dot"></span>
+                  <span>Dry Studio (0.3s)</span>
+                </button>
+                <button type="button" class="acoustic-toggle-btn is-active" id="btnHallAcoustic">
+                  <span class="sound-pulse-dot"></span>
+                  <span>Hillhurst (2.4s Decay)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Grid: 4 Visiting Artist Opportunities -->
+          <div class="visiting-artist-grid">
+            <div class="artist-stream-card">
+              <div>
+                <span class="artist-stream-num">Path 01</span>
+                <h3 class="artist-stream-heading">Rehearse</h3>
+                <p class="artist-stream-desc">Practice somewhere worth hearing yourself. Dedicated, quiet hours alone with the piano and the timber resonance.</p>
+              </div>
+              <a href="#enroll" class="artist-stream-action">Reserve Study Hours <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="artist-stream-card">
+              <div>
+                <span class="artist-stream-num">Path 02</span>
+                <h3 class="artist-stream-heading">Acoustic Recording</h3>
+                <p class="artist-stream-desc">Capture the room, not just the instrument. Natural stereo acoustic capture without artificial studio reverb or clinical dampening.</p>
+              </div>
+              <a href="#enroll" class="artist-stream-action">Book Session Block <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="artist-stream-card">
+              <div>
+                <span class="artist-stream-num">Path 03</span>
+                <h3 class="artist-stream-heading">Hillhurst Sessions</h3>
+                <p class="artist-stream-desc">One artist. One room. One unhurried performance recorded with quiet intimacy before an invitation-only gathering.</p>
+              </div>
+              <a href="#enroll" class="artist-stream-action">Inquire as Performer <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="artist-stream-card">
+              <div>
+                <span class="artist-stream-num">Path 04</span>
+                <h3 class="artist-stream-heading">The Artist Day</h3>
+                <p class="artist-stream-desc">Coffee downstairs from Rocsato Coffee Roasters, unhurried rehearsal on the Steinway, an afternoon recording block, and quiet evening departure.</p>
+              </div>
+              <a href="#enroll" class="artist-stream-action">Plan an Artist Residency <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1345,7 +1475,8 @@
       const tagline = document.querySelector('.chamber-tagline');
       const prompt = document.getElementById('scrollIndicator');
       const navHeader = document.getElementById('rocsatoNav');
-      const recitalChamber = document.getElementById('recitalChamber');
+      const recitalChamber = document.getElementById('recital-room');
+      const chamberBg = document.getElementById('chamberBgWrap');
 
       const disciplineKeys = ['piano', 'strings', 'brass', 'woodwinds', 'voice', 'historical'];
       const disciplines = disciplineKeys.map(key => ({
@@ -1410,10 +1541,13 @@
         if (p < DISCIPLINES_START) {
           hideAllDisciplines();
 
-          // Subtitle & scroll cue fade out immediately on first scroll
+          // Subtitle, scroll cue, and estate backdrop fade smoothly on initial scroll
           const textFade = Math.max(1 - Math.min(p / 0.03, 1), 0);
           if (tagline) tagline.style.opacity = textFade * 0.88;
           if (prompt) prompt.style.opacity = textFade;
+
+          const estateFade = Math.max(1 - Math.min(p / 0.06, 1), 0);
+          if (chamberBg) chamberBg.style.opacity = estateFade;
 
           // 1. Approach toward the counter of the C (0.00 -> 0.14)
           if (p <= 0.14) {
@@ -1427,6 +1561,7 @@
               opening.style.opacity = 1;
               opening.style.pointerEvents = p < 0.02 ? 'auto' : 'none';
             }
+            if (chamberBg) chamberBg.style.opacity = estateFade;
             if (dark) dark.style.opacity = 0;
             if (disc) { disc.style.opacity = 0; disc.style.display = 'none'; disc.style.pointerEvents = 'none'; }
             return;
@@ -1507,9 +1642,11 @@
           const currentIndex = Math.min(Math.floor(rawIndex), totalDiscCount - 1);
           const localProg = Math.min(Math.max(rawIndex - currentIndex, 0), 1);
           const hasNextDiscipline = currentIndex < totalDiscCount - 1;
-          const handoffProg = hasNextDiscipline
-            ? Math.min(Math.max((localProg - 0.82) / 0.18, 0), 1)
-            : 0;
+          
+          // Handoff prog controls the cross-fade between rooms.
+          // For the final discipline, we fade out into the Act 3 transition darkness.
+          const exitProg = Math.min(Math.max((localProg - 0.82) / 0.18, 0), 1);
+          const handoffProg = hasNextDiscipline ? exitProg : 0;
 
           for (let i = 0; i < totalDiscCount; i++) {
             const d = disciplines[i];
@@ -1551,17 +1688,13 @@
             let cardAlpha = 0.16 + (imgProg * 0.84);
 
             // Outgoing hierarchy: language disappears, then image, into black.
-            if (hasNextDiscipline && localProg > 0.82) {
-              cardAlpha = Math.max(1 - handoffProg, 0);
+            if (localProg > 0.82) {
+              cardAlpha = Math.max(1 - exitProg, 0);
             }
             d.card.style.opacity = cardAlpha;
 
-            const textExit = hasNextDiscipline
-              ? Math.max(1 - Math.min(Math.max((localProg - 0.80) / 0.10, 0), 1), 0)
-              : 1;
-            const imageExit = hasNextDiscipline
-              ? Math.max(1 - Math.min(Math.max((localProg - 0.86) / 0.14, 0), 1), 0)
-              : 1;
+            const textExit = Math.max(1 - Math.min(Math.max((localProg - 0.80) / 0.10, 0), 1), 0);
+            const imageExit = Math.max(1 - Math.min(Math.max((localProg - 0.86) / 0.14, 0), 1), 0);
 
             // STAGGERED CADENCE (all elements assemble within 0.00 -> 0.44):
             // 1. Picture: 0.00 -> 0.20
@@ -1599,15 +1732,77 @@
           if (recitalChamber) {
             recitalChamber.style.display = 'flex';
             const roomProg = (p - RECITAL_START) / (1.0 - RECITAL_START);
-            recitalChamber.style.opacity = Math.min(roomProg * 2, 1);
+            // Rapid room fade-in to establish the visual space quickly
+            recitalChamber.style.opacity = Math.min(roomProg * 5, 1);
             
-            if (roomProg > 0.1) {
+            // Hold the clean space until scroll hits approx 0.94
+            if (roomProg > 0.45) {
               recitalChamber.classList.add('is-active');
             } else {
               recitalChamber.classList.remove('is-active');
             }
           }
         }
+      }
+
+      // Web Audio Acoustic Reverb / Decay Synthesizer
+      let audioCtx = null;
+      function playAcousticNote(isHall) {
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContext) return;
+          if (!audioCtx) audioCtx = new AudioContext();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          // Rich classical overtone: A4 (440Hz)
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(440, now);
+
+          if (isHall) {
+            // Hillhurst Hall: warm strike, slow, unhurried acoustic tail
+            gain.gain.setValueAtTime(0.001, now);
+            gain.gain.exponentialRampToValueAtTime(0.35, now + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 2.55);
+          } else {
+            // Dry studio: flat, quick acoustic stop
+            gain.gain.setValueAtTime(0.001, now);
+            gain.gain.exponentialRampToValueAtTime(0.3, now + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.4);
+          }
+        } catch(e) {
+          // Audio policy silent catch
+        }
+      }
+
+      const btnDry = document.getElementById('btnDryAcoustic');
+      const btnHall = document.getElementById('btnHallAcoustic');
+
+      if (btnDry && btnHall) {
+        btnDry.addEventListener('click', (e) => {
+          e.stopPropagation();
+          btnDry.classList.add('is-active');
+          btnHall.classList.remove('is-active');
+          playAcousticNote(false);
+        });
+
+        btnHall.addEventListener('click', (e) => {
+          e.stopPropagation();
+          btnHall.classList.add('is-active');
+          btnDry.classList.remove('is-active');
+          playAcousticNote(true);
+        });
       }
 
       window.addEventListener('scroll', onScroll, { passive: true });
