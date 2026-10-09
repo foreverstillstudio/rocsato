@@ -1161,6 +1161,179 @@
       }
     }
 
+    /* --------------------------------------------------------------------------
+       ACT 4: THE OPENING SCORE & ENROLLMENT
+       -------------------------------------------------------------------------- */
+    .score-transition,
+    .enrollment-chamber {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      display: none;
+      box-sizing: border-box !important;
+      opacity: 0;
+      pointer-events: none !important;
+    }
+
+    .score-transition {
+      z-index: 55 !important;
+      overflow: hidden !important;
+      background: #080708 !important;
+    }
+
+    .score-transition video {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      filter: brightness(0.86) contrast(1.04) saturate(0.9) !important;
+    }
+
+    .score-transition::after {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background: radial-gradient(circle at center, transparent 24%, rgba(8, 7, 8, 0.16) 58%, rgba(8, 7, 8, 0.98) 100%) !important;
+      pointer-events: none !important;
+    }
+
+    .enrollment-chamber {
+      z-index: 56 !important;
+      align-items: flex-start !important;
+      justify-content: center !important;
+      padding: calc(var(--concept-banner-height) + 6.5rem) 1.25rem 3rem !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      background: #080708 !important;
+    }
+
+    .enrollment-dossier {
+      width: min(100%, 620px) !important;
+      margin: auto !important;
+      padding: clamp(2rem, 5vw, 4rem) !important;
+      box-sizing: border-box !important;
+      border: 1px solid rgba(197, 160, 89, 0.3) !important;
+      background: linear-gradient(145deg, rgba(25, 20, 20, 0.78), rgba(8, 8, 8, 0.98)) !important;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.75) !important;
+      text-align: center !important;
+    }
+
+    .enrollment-chamber.is-active {
+      pointer-events: auto !important;
+    }
+
+    .enrollment-kicker,
+    .enrollment-field label {
+      color: #c5a059 !important;
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.64rem !important;
+      letter-spacing: 0.22em !important;
+      text-transform: uppercase !important;
+    }
+
+    .enrollment-kicker {
+      margin: 0 0 1rem !important;
+    }
+
+    .enrollment-title {
+      margin: 0 !important;
+      color: #fdfbf7 !important;
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: clamp(2.25rem, 5vw, 3.75rem) !important;
+      font-weight: 600 !important;
+      line-height: 1.1 !important;
+    }
+
+    .enrollment-copy {
+      max-width: 430px !important;
+      margin: 1.2rem auto 2rem !important;
+      color: rgba(253, 251, 247, 0.68) !important;
+      font: 300 0.95rem/1.7 'Albert Sans', sans-serif !important;
+    }
+
+    .enrollment-form {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 1rem !important;
+      text-align: left !important;
+    }
+
+    .enrollment-field {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.45rem !important;
+    }
+
+    .enrollment-field--wide,
+    .enrollment-submit,
+    .enrollment-note {
+      grid-column: 1 / -1 !important;
+    }
+
+    .enrollment-field input,
+    .enrollment-field select,
+    .enrollment-field textarea {
+      width: 100% !important;
+      padding: 0.82rem 0.9rem !important;
+      box-sizing: border-box !important;
+      border: 1px solid rgba(197, 160, 89, 0.28) !important;
+      border-radius: 0 !important;
+      outline: none !important;
+      background: rgba(8, 7, 8, 0.8) !important;
+      color: #fdfbf7 !important;
+      font: 400 0.9rem 'Albert Sans', sans-serif !important;
+    }
+
+    .enrollment-field textarea {
+      min-height: 100px !important;
+      resize: vertical !important;
+    }
+
+    .enrollment-field input:focus,
+    .enrollment-field select:focus,
+    .enrollment-field textarea:focus {
+      border-color: #c5a059 !important;
+    }
+
+    .enrollment-submit {
+      margin-top: 0.5rem !important;
+      padding: 0.95rem 1.2rem !important;
+      border: 1px solid #c5a059 !important;
+      background: #c5a059 !important;
+      color: #080708 !important;
+      font-family: 'Cinzel', Georgia, serif !important;
+      font-size: 0.68rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.17em !important;
+      text-transform: uppercase !important;
+      cursor: pointer !important;
+    }
+
+    .enrollment-note {
+      margin: 0.2rem 0 0 !important;
+      color: rgba(253, 251, 247, 0.42) !important;
+      font: 400 0.72rem/1.45 'Albert Sans', sans-serif !important;
+      text-align: center !important;
+    }
+
+    @media (max-width: 600px) {
+      .enrollment-dossier {
+        padding: 2rem 1.25rem !important;
+      }
+
+      .enrollment-form {
+        grid-template-columns: 1fr !important;
+      }
+
+      .enrollment-field--wide,
+      .enrollment-submit,
+      .enrollment-note {
+        grid-column: auto !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1462,6 +1635,61 @@
         </div>
       </section>
 
+      <!-- Scene 11: The Opening Score -->
+      <section class="score-transition" id="score-transition" aria-label="The Rocsato score opens">
+        <video id="scoreVideo" muted playsinline preload="metadata">
+          <source src="images/enroll.mp4" type="video/mp4">
+        </video>
+      </section>
+
+      <!-- Scene 12: Enrollment -->
+      <section class="enrollment-chamber" id="enroll" aria-labelledby="enrollmentTitle">
+        <div class="enrollment-dossier">
+          <p class="enrollment-kicker">Rocsato Conservatory of Music</p>
+          <h2 class="enrollment-title" id="enrollmentTitle">Begin Your Study</h2>
+          <p class="enrollment-copy">Every musical life begins somewhere. Tell us a little about the study you are ready to begin.</p>
+
+          <form class="enrollment-form" onsubmit="return false;">
+            <div class="enrollment-field">
+              <label for="enrollmentName">Your name</label>
+              <input id="enrollmentName" name="name" type="text" autocomplete="name">
+            </div>
+            <div class="enrollment-field">
+              <label for="enrollmentEmail">Email address</label>
+              <input id="enrollmentEmail" name="email" type="email" autocomplete="email">
+            </div>
+            <div class="enrollment-field">
+              <label for="enrollmentStudent">Who is beginning study?</label>
+              <select id="enrollmentStudent" name="student">
+                <option value="">Select one</option>
+                <option>Myself</option>
+                <option>My child</option>
+                <option>Someone else</option>
+              </select>
+            </div>
+            <div class="enrollment-field">
+              <label for="enrollmentInterest">Area of interest</label>
+              <select id="enrollmentInterest" name="interest">
+                <option value="">Select one</option>
+                <option>Piano</option>
+                <option>Strings</option>
+                <option>Brass</option>
+                <option>Woodwinds</option>
+                <option>Voice</option>
+                <option>Historical performance</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="enrollment-field enrollment-field--wide">
+              <label for="enrollmentHope">What are you hoping music study will make possible?</label>
+              <textarea id="enrollmentHope" name="hope"></textarea>
+            </div>
+            <button class="enrollment-submit" type="button">Begin the Conversation</button>
+            <p class="enrollment-note">Concept form only — inquiry delivery is not connected in this design study.</p>
+          </form>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -1476,6 +1704,9 @@
       const prompt = document.getElementById('scrollIndicator');
       const navHeader = document.getElementById('rocsatoNav');
       const recitalChamber = document.getElementById('recital-room');
+      const scoreTransition = document.getElementById('score-transition');
+      const scoreVideo = document.getElementById('scoreVideo');
+      const enrollmentChamber = document.getElementById('enroll');
       const chamberBg = document.getElementById('chamberBgWrap');
 
       const disciplineKeys = ['piano', 'strings', 'brass', 'woodwinds', 'voice', 'historical'];
@@ -1500,10 +1731,14 @@
       // 0.29 -> 0.32 : Quiet pause before Piano awakens
       // 0.32 -> 0.86 : Disciplines 1 through 6
       // 0.86 -> 0.88 : Quiet darkness
-      // 0.88 -> 1.00 : The Recital Room
+      // 0.88 -> 0.94 : The Recital Room
+      // 0.94 -> 0.97 : The Opening Score
+      // 0.97 -> 1.00 : Enrollment
       const DISCIPLINES_START = 0.32;
       const DISCIPLINES_END = 0.86;
       const RECITAL_START = 0.88;
+      const SCORE_START = 0.94;
+      const ENROLLMENT_START = 0.97;
       const totalDiscCount = disciplines.length;
 
       function onScroll() {
@@ -1636,6 +1871,8 @@
           if (dark) dark.style.opacity = 1;
           if (disc) { disc.style.opacity = 0; disc.style.display = 'none'; disc.style.pointerEvents = 'none'; }
           if (recitalChamber) { recitalChamber.style.display = 'none'; recitalChamber.classList.remove('is-active'); }
+          if (scoreTransition) { scoreTransition.style.display = 'none'; scoreTransition.style.opacity = 0; }
+          if (enrollmentChamber) { enrollmentChamber.style.display = 'none'; enrollmentChamber.style.opacity = 0; enrollmentChamber.classList.remove('is-active'); }
 
           const activeProg = Math.min((p - DISCIPLINES_START) / (DISCIPLINES_END - DISCIPLINES_START), 1);
           const rawIndex = activeProg * totalDiscCount;
@@ -1721,26 +1958,61 @@
         }
 
         // ====================================================================
-        // ACT 3: THE RECITAL ROOM (0.88 -> 1.00)
+        // ACT 3: THE RECITAL ROOM (0.88 -> 0.94)
         // ====================================================================
-        if (p >= RECITAL_START) {
+        if (p >= RECITAL_START && p < SCORE_START) {
           hideAllDisciplines();
           if (opening) { opening.style.opacity = 0; opening.style.display = 'none'; }
           if (dark) dark.style.opacity = 1;
           if (disc) { disc.style.opacity = 0; disc.style.display = 'none'; disc.style.pointerEvents = 'none'; }
+          if (scoreTransition) { scoreTransition.style.display = 'none'; scoreTransition.style.opacity = 0; }
+          if (enrollmentChamber) { enrollmentChamber.style.display = 'none'; enrollmentChamber.style.opacity = 0; enrollmentChamber.classList.remove('is-active'); }
 
           if (recitalChamber) {
             recitalChamber.style.display = 'flex';
-            const roomProg = (p - RECITAL_START) / (1.0 - RECITAL_START);
-            // Rapid room fade-in to establish the visual space quickly
+            const roomProg = (p - RECITAL_START) / (SCORE_START - RECITAL_START);
             recitalChamber.style.opacity = Math.min(roomProg * 5, 1);
-            
-            // Hold the clean space until scroll hits approx 0.94
-            if (roomProg > 0.45) {
-              recitalChamber.classList.add('is-active');
-            } else {
-              recitalChamber.classList.remove('is-active');
+            recitalChamber.classList.toggle('is-active', roomProg > 0.45);
+          }
+        }
+
+        // ====================================================================
+        // ACT 4: THE OPENING SCORE (0.94 -> 0.97)
+        // ====================================================================
+        if (p >= SCORE_START && p < ENROLLMENT_START) {
+          hideAllDisciplines();
+          if (recitalChamber) { recitalChamber.style.display = 'none'; recitalChamber.classList.remove('is-active'); }
+          if (enrollmentChamber) { enrollmentChamber.style.display = 'none'; enrollmentChamber.style.opacity = 0; enrollmentChamber.classList.remove('is-active'); }
+
+          const scoreProg = (p - SCORE_START) / (ENROLLMENT_START - SCORE_START);
+          if (scoreTransition) {
+            scoreTransition.style.display = 'block';
+            scoreTransition.style.opacity = Math.min(scoreProg * 7, 1);
+          }
+
+          if (scoreVideo) {
+            if (scoreVideo.paused) scoreVideo.play().catch(() => {});
+            if (scoreVideo.duration && Number.isFinite(scoreVideo.duration)) {
+              const targetTime = Math.min(scoreProg * scoreVideo.duration, Math.max(scoreVideo.duration - 0.05, 0));
+              if (Math.abs(scoreVideo.currentTime - targetTime) > 0.18) scoreVideo.currentTime = targetTime;
             }
+          }
+        }
+
+        // ====================================================================
+        // ACT 5: ENROLLMENT (0.97 -> 1.00)
+        // ====================================================================
+        if (p >= ENROLLMENT_START) {
+          hideAllDisciplines();
+          if (recitalChamber) { recitalChamber.style.display = 'none'; recitalChamber.classList.remove('is-active'); }
+          if (scoreTransition) { scoreTransition.style.display = 'none'; scoreTransition.style.opacity = 0; }
+          if (scoreVideo && !scoreVideo.paused) scoreVideo.pause();
+
+          if (enrollmentChamber) {
+            const enrollmentProg = (p - ENROLLMENT_START) / (1 - ENROLLMENT_START);
+            enrollmentChamber.style.display = 'flex';
+            enrollmentChamber.style.opacity = Math.min(enrollmentProg * 5, 1);
+            enrollmentChamber.classList.toggle('is-active', enrollmentProg > 0.2);
           }
         }
       }
