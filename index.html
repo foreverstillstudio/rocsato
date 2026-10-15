@@ -225,7 +225,7 @@
     /* Extended scroll track for unhurried cinematic pacing across all acts */
     .portal-stage {
       position: relative !important;
-      height: 3600vh !important;
+      height: 4160vh !important;
       width: 100% !important;
       background: transparent !important;
     }
@@ -1367,7 +1367,7 @@
 
   <main>
     <!-- Single scroll runner driving the whole fader timeline -->
-    <div class="portal-stage" id="portalStage" style="height: 2800vh;"></div>
+    <div class="portal-stage" id="portalStage" style="height: 4160vh;"></div>
 
     <!-- ONE permanently locked viewport: nothing ever scrolls or translates in Y -->
     <div class="viewport-stage" id="viewportStage" aria-label="Rocsato Experience">
@@ -1637,8 +1637,8 @@
 
       <!-- Scene 11: The Opening Score -->
       <section class="score-transition" id="score-transition" aria-label="The Rocsato score opens">
-        <video id="scoreVideo" muted playsinline preload="metadata">
-          <source src="images/enroll.mp4" type="video/mp4">
+        <video id="scoreVideo" muted playsinline preload="auto">
+          <source src="images/enroll-scrub.mp4" type="video/mp4">
         </video>
       </section>
 
@@ -1729,17 +1729,50 @@
       // 0.22 -> 0.26 : "Find Your Instrument" dissolve and hold
       // 0.26 -> 0.29 : Title fades to black
       // 0.29 -> 0.32 : Quiet pause before Piano awakens
-      // 0.32 -> 0.86 : Disciplines 1 through 6
-      // 0.86 -> 0.88 : Quiet darkness
-      // 0.88 -> 0.94 : The Recital Room
-      // 0.94 -> 0.97 : The Opening Score
-      // 0.97 -> 1.00 : Enrollment
+      // 0.32 -> 0.82 : Disciplines 1 through 6
+      // 0.82 -> 0.85 : Quiet darkness breath
+      // 0.85 -> 1.00 : The Recital Room (a real stop: long hold to read and explore)
+      // 1.00 -> 1.16 : The Opening Score, scrubbed by scroll, dissolving into Enrollment
+      // The timeline runs past 1.0 so the Recital Room and score gain room
+      // without changing the pacing of anything before them.
       const DISCIPLINES_START = 0.32;
-      const DISCIPLINES_END = 0.86;
-      const RECITAL_START = 0.88;
-      const SCORE_START = 0.94;
-      const ENROLLMENT_START = 0.97;
+      const DISCIPLINES_END = 0.82;
+      const RECITAL_START = 0.85;
+      const SCORE_START = 1.00;
+      const TIMELINE_END = 1.16;
       const totalDiscCount = disciplines.length;
+
+      // Scroll-driven video scrub. Eases the playhead toward the scroll position
+      // so frames glide instead of jumping with each wheel tick.
+      let scrubTarget = 0;
+      let scrubShown = -1;
+      let scrubFrame = null;
+      let scrubPrimed = false;
+
+      function requestScrub() {
+        if (!scoreVideo || scrubFrame) return;
+        if (!scrubPrimed) {
+          // iOS will not paint seeked frames until the video has played once.
+          scrubPrimed = true;
+          const primed = scoreVideo.play();
+          if (primed) primed.then(() => scoreVideo.pause()).catch(() => {});
+          else scoreVideo.pause();
+        }
+        scrubFrame = requestAnimationFrame(stepScrub);
+      }
+
+      function stepScrub() {
+        scrubFrame = null;
+        const dur = scoreVideo.duration;
+        if (!dur || !Number.isFinite(dur)) { scrubFrame = requestAnimationFrame(stepScrub); return; }
+        if (!scoreVideo.paused) scoreVideo.pause();
+        if (scrubShown < 0) scrubShown = scrubTarget;
+        scrubShown += (scrubTarget - scrubShown) * 0.2;
+        if (Math.abs(scrubTarget - scrubShown) < 0.001) scrubShown = scrubTarget;
+        const t = Math.min(scrubShown * dur, Math.max(dur - 0.05, 0));
+        if (!scoreVideo.seeking && Math.abs(scoreVideo.currentTime - t) > 0.01) scoreVideo.currentTime = t;
+        if (scrubShown !== scrubTarget) scrubFrame = requestAnimationFrame(stepScrub);
+      }
 
       function onScroll() {
         if (navHeader) {
@@ -1752,7 +1785,7 @@
 
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         if (maxScroll <= 0) return;
-        const p = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+        const p = Math.min(Math.max(window.scrollY / maxScroll, 0), 1) * TIMELINE_END;
 
         if (navHeader) {
           navHeader.classList.toggle('is-recital', p >= RECITAL_START);
@@ -1958,7 +1991,7 @@
         }
 
         // ====================================================================
-        // ACT 3: THE RECITAL ROOM (0.88 -> 0.94)
+        // ACT 3: THE RECITAL ROOM (0.85 -> 1.00)
         // ====================================================================
         if (p >= RECITAL_START && p < SCORE_START) {
           hideAllDisciplines();
@@ -1971,48 +2004,48 @@
           if (recitalChamber) {
             recitalChamber.style.display = 'flex';
             const roomProg = (p - RECITAL_START) / (SCORE_START - RECITAL_START);
-            recitalChamber.style.opacity = Math.min(roomProg * 5, 1);
-            recitalChamber.classList.toggle('is-active', roomProg > 0.45);
+            // In: 0.0 -> 0.12 | Hold: 0.12 -> 0.82 | Out: 0.82 -> 1.0
+            let alpha = 1;
+            if (roomProg < 0.12) {
+              alpha = roomProg / 0.12;
+            } else if (roomProg > 0.82) {
+              alpha = Math.max(1 - (roomProg - 0.82) / 0.18, 0);
+            }
+            recitalChamber.style.opacity = alpha;
+            recitalChamber.classList.toggle('is-active', roomProg >= 0.12 && roomProg <= 0.82);
           }
         }
 
         // ====================================================================
-        // ACT 4: THE OPENING SCORE (0.94 -> 0.97)
+        // ACT 4 & 5: THE OPENING SCORE & ENROLLMENT (1.00 -> 1.16)
+        // Seamless cross-fade where the video gently dissolves as the enrollment
+        // dossier rises from beneath it, keeping the experience fluid and unhurried.
         // ====================================================================
-        if (p >= SCORE_START && p < ENROLLMENT_START) {
+        if (p >= SCORE_START) {
           hideAllDisciplines();
           if (recitalChamber) { recitalChamber.style.display = 'none'; recitalChamber.classList.remove('is-active'); }
-          if (enrollmentChamber) { enrollmentChamber.style.display = 'none'; enrollmentChamber.style.opacity = 0; enrollmentChamber.classList.remove('is-active'); }
 
-          const scoreProg = (p - SCORE_START) / (ENROLLMENT_START - SCORE_START);
+          const transitionProg = Math.min((p - SCORE_START) / (TIMELINE_END - SCORE_START), 1);
+
+          // Video rises out of the Recital Room's darkness, then fades as the form arrives
+          const videoAlpha = transitionProg < 0.08 ? transitionProg / 0.08
+            : transitionProg < 0.65 ? 1 : Math.max(1 - (transitionProg - 0.65) / 0.35, 0);
+
           if (scoreTransition) {
             scoreTransition.style.display = 'block';
-            scoreTransition.style.opacity = Math.min(scoreProg * 7, 1);
+            scoreTransition.style.opacity = videoAlpha;
           }
 
-          if (scoreVideo) {
-            if (scoreVideo.paused) scoreVideo.play().catch(() => {});
-            if (scoreVideo.duration && Number.isFinite(scoreVideo.duration)) {
-              const targetTime = Math.min(scoreProg * scoreVideo.duration, Math.max(scoreVideo.duration - 0.05, 0));
-              if (Math.abs(scoreVideo.currentTime - targetTime) > 0.18) scoreVideo.currentTime = targetTime;
-            }
-          }
-        }
-
-        // ====================================================================
-        // ACT 5: ENROLLMENT (0.97 -> 1.00)
-        // ====================================================================
-        if (p >= ENROLLMENT_START) {
-          hideAllDisciplines();
-          if (recitalChamber) { recitalChamber.style.display = 'none'; recitalChamber.classList.remove('is-active'); }
-          if (scoreTransition) { scoreTransition.style.display = 'none'; scoreTransition.style.opacity = 0; }
-          if (scoreVideo && !scoreVideo.paused) scoreVideo.pause();
+          // The score never plays on its own clock: scroll position is the playhead.
+          scrubTarget = Math.min(transitionProg / 0.75, 1);
+          requestScrub();
 
           if (enrollmentChamber) {
-            const enrollmentProg = (p - ENROLLMENT_START) / (1 - ENROLLMENT_START);
             enrollmentChamber.style.display = 'flex';
-            enrollmentChamber.style.opacity = Math.min(enrollmentProg * 5, 1);
-            enrollmentChamber.classList.toggle('is-active', enrollmentProg > 0.2);
+            // Form fades in smoothly as the video dissolves away
+            const formAlpha = transitionProg < 0.5 ? 0 : Math.min((transitionProg - 0.5) / 0.3, 1);
+            enrollmentChamber.style.opacity = formAlpha;
+            enrollmentChamber.classList.toggle('is-active', formAlpha > 0.5);
           }
         }
       }
