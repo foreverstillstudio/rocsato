@@ -1770,8 +1770,11 @@
         scrubShown += (scrubTarget - scrubShown) * 0.2;
         if (Math.abs(scrubTarget - scrubShown) < 0.001) scrubShown = scrubTarget;
         const t = Math.min(scrubShown * dur, Math.max(dur - 0.05, 0));
-        if (!scoreVideo.seeking && Math.abs(scoreVideo.currentTime - t) > 0.01) scoreVideo.currentTime = t;
-        if (scrubShown !== scrubTarget) scrubFrame = requestAnimationFrame(stepScrub);
+        const behind = Math.abs(scoreVideo.currentTime - t) > 0.01;
+        if (!scoreVideo.seeking && behind) scoreVideo.currentTime = t;
+        // Keep stepping until the frame on screen matches the scroll, not just the
+        // eased target: over a network a seek can still be in flight when easing ends.
+        if (scrubShown !== scrubTarget || behind || scoreVideo.seeking) scrubFrame = requestAnimationFrame(stepScrub);
       }
 
       function onScroll() {
